@@ -29,9 +29,10 @@ def xmlmapper(source, infile=sys.stdin):
         if (x.attrib["PostTypeId"] == "1"):
             #Fetching the content of body
             body = x.attrib[source]
-
+            if len(body) > =10:
+                counter +=1
             words = cleanBody(body)
 
             mapper_core(words)
 
-xmlmapper("Body", "..\posts.xml")
+xmlmapper("Body")

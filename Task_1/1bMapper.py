@@ -34,4 +34,4 @@ def xmlmapper(source, infile=sys.stdin):
 
             mapper_core(words)
 
-xmlmapper("Body", "..\posts.xml")
+xmlmapper("Body")
