@@ -1,16 +1,22 @@
 #!/usr/bin/python3
-
 import sys
-
+from operator import itemgetter
+# using a dictionary to map words to their counts
 current_word = None
+current_count = 0
+word = None
 
 for line in sys.stdin:
-    word, count = line.strip().split()
-    if current_word:
-        if word == current_word:
-            continue
-        print("%s\t%d" % (current_word, 1))
+    line = line.strip()
+    word,count = line.split();
 
-    current_word = word
 
-print("%s\t%d" % (current_word, 1))
+    if current_word ==word:
+        pass
+    else:
+        if current_word:
+            print("%s "%(current_word))
+        current_word = word
+
+if current_word== word:
+    print("%s "% (current_word))

@@ -24,14 +24,17 @@ def xmlmapper(source, infile=sys.stdin):
         infile = infile.detach()
     mytree = ET.parse(infile)
     myroot = mytree.getroot()
-
+    count = 0
     for x in myroot:
         if (x.attrib["PostTypeId"] == "1"):
             #Fetching the content of body
             body = x.attrib[source]
 
+
             words = cleanBody(body)
 
-            mapper_core(words)
-
+            if len(words) >10 :
+                count += 1
+    print (count)
+    return count
 xmlmapper("Title")
