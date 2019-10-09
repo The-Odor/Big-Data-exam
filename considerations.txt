@@ -1,0 +1,3 @@
+decided, for wordcount.py, to:
+
+remove things
