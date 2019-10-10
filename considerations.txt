@@ -1,3 +1,1 @@
-decided, for wordcount.py, to:
-
-remove things
+wordstop list: https://raw.githubusercontent.com/naimdjon/stopwords/master/stopwords.txt

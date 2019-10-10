@@ -2,7 +2,7 @@
 # 1. the dataset in the cluster is located at "news"
 # 2. the current directory contains files mapper.py and reducer.py for mapper and reducer code respectively
 
-mapperfile=1bmapper.py
+mapperfile=1amapper.py
 reducerfile=1breducer.py
 
 apt-get install dos2unix

@@ -1,2 +1,4 @@
 *.xml
 *.7z
+stopwords.txt
+*.sh
