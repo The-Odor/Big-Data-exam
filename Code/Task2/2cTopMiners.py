@@ -33,6 +33,6 @@ def xmlmapper(source, infile=sys.stdin):
         #words = cleanBody(body)
         #print([body, rep])
 
-        mapper_core([[body], [rep]], "short")
+        mapper_core([[body], [rep]], "double")
 
 xmlmapper("Id")
