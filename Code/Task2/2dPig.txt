@@ -1,4 +1,4 @@
-list = LOAD 'output_2d/part-00000' using PigStorage(',') AS (id:int, title:chararray, score:int);
+list = LOAD '://localhost/user/root/output_2d/*' using PigStorage(',') AS (id:int, title:chararray, score:int);
 A = FOREACH list GENERATE id,title,score;
 
 B = DISTINCT A;
