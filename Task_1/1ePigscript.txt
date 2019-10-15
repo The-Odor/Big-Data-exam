@@ -1,3 +1,0 @@
-list = LOAD '/root/output/output1e' using PigStorage(',') AS (word:chararray, count:int);
-sorted_list = ORDER list BY count;
-dump sorted_list LIMIT 10;
