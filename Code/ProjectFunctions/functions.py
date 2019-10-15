@@ -39,13 +39,14 @@ def cleanBody(body):
 
 
 """
-mapper_core(words)
+mapper_core(words, mode="single")
 maps list of words into format acceptable by Hadoop
 ignores groups of characters containing fewer than 2 characters
 or containing characters listed in string.digits or string.punctuation
 
 input:
-  string words : words wanted to be passed into Hadoop
+  list words : words wanted to be passed into Hadoop
+               if 
 
 returns:
   None, prints words into format acceptable by Hadoop
@@ -59,7 +60,6 @@ def mapper_core(words, mode="single"):
         in1, in2 = words
         for word, count in zip(in1,in2):
             print("%s %s" %(word,count)) #emit the words
-
     elif mode == "triple":
         in1, in2,in3  = words
         for id, score, title in zip(in1,in2,in3):
