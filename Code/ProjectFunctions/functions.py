@@ -51,6 +51,9 @@ returns:
   None, prints words into format acceptable by Hadoop
 """
 def mapper_core(words):
+    if isinstance(words, list):
+      for word in words:
+        print("%s %s" %(word[0],word[1]))
     for word in words:
         if (len(word) < 2 and (i in ignore_char for i in word)):
             #TODO: check whether second check is redundant due
