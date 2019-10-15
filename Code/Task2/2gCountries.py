@@ -32,10 +32,13 @@ def xmlmapper(source, infile=sys.stdin):
 
     #Extracting the relevant section from the file
     for post in myroot:
-        Location = post.attrib[source]
+        try:
+            Location = post.attrib[source]
+        except KeyError:
+            continue
 
-        loc = cleanBody(Location)
+        loc = " ".join(cleanBody(Location))
 
-        mapper_core(loc)
+        print(loc, "|", 1)
 
 xmlmapper("Location")
