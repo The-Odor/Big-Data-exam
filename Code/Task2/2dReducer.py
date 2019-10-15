@@ -8,20 +8,24 @@ word = None
 
 for line in sys.stdin:
     line = line.strip()
-    templst = line.split(" "); "this is a long sentence of words"
+    templist= line.split(" ");
+    id, score = templist[:2]
+    tempText = templist[2:]
+    Title=" ".join(tempText)
 
-    id, score = templst[:2]
-    temptext = templst[2:]
-    Title = [i for i in list(temptext)[3:-3]]
+    #id, score = templst[:2]
+    #Title = templst[2:]
+
     #Title = temptext
+
 
     score = int(score)
     if current_word ==id:
         current_count += score
     else:
         if current_word:
-            print("%s %s %s"%(current_word, Title, current_count))
+            print("%s,%s,%s"%(current_word, Title, current_count))
         current_word = id
         current_count = score
 if current_word== id:
-    print("%s %s %s "% (current_word, Title, current_count ))
+    print("%s,%s,%s "% (current_word, Title, current_count ))

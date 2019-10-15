@@ -35,7 +35,8 @@ def xmlmapper(source, infile=sys.stdin):
 
             words = cleanBody(title)
             #print([body, rep])
-
-            mapper_core([[id],[score], [words]], "triple")
+            Title=" ".join(words)
+            #print(words)
+            mapper_core([[id],[score], [Title]], "triple")
 
 xmlmapper("Id")
