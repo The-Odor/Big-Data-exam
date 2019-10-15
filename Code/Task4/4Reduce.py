@@ -3,34 +3,40 @@ import sys
 from operator import itemgetter
 # using a dictionary to map words to their counts
 current_word = None
-current_count = 0
+current_id = 0
 word = None
+ids = []
+
 
 for line in sys.stdin:
     line = line.strip()
-    word,count = line.split()
 
-    ids = []
+    try:
+        word,id = line.split()
+        id = int(id)
+    except ValueError:
+        continue
 
-    if current_word == word and current_count == count:
+    if current_word == word and current_id == id:
         pass
-    elif current_word == word:
-        if current_word:
-            ids.append(count)
+    elif current_word == word and current_id != id:
+        if current_word and not id in ids:
+            ids.append(id)
     else:
-        ids.append(count)
+        ids.append(id)
         idprint = ""
         for id in ids:
-            idprint += "," + id
+            idprint += "," + str(id)
         print("%s, %s"%(current_word, idprint))
 
         current_word = word
+        ids = []
 
 if current_word== word:
-    ids.append(count)
+    ids.append(id)
     idprint = ""
     for id in ids:
         idprint += "," + id
-    print("%s, %s"%(current_word, idprint))
+    print("%s, %s"%(current_word, idprint[1:]))
 
     current_word = word
