@@ -4,4 +4,4 @@ A = FOREACH list GENERATE id,title,score;
 B = DISTINCT A;
 C = GROUP B BY (title, score) PARALLEL 11;
 D = FOREACH C GENERATE score, MAX(B.score);
-DUMP D ; 
+DUMP D ;
