@@ -1,0 +1,290 @@
+% Do not modify these
+\documentclass[fleqn,10pt]{wlscirep}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+
+
+% -- Insert any custom LaTeX packages here --
+
+% \package{natbib} % <-- Required for the Chicago citation style
+% \package{apacite} % <-- Required for the APA citation style
+% If you decide to use one of the styles above, remember to change the \bibliographystyle{} at the bottom of the document too!
+
+\usepackage{listings} % <-- Required if you want to display program source code in your paper.
+
+
+% -- End of custom LaTeX packages --
+
+\usepackage{titlesec}
+\usepackage{cleveref}
+
+\setcounter{secnumdepth}{4}
+
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}}
+\newcommand{\citesup}[1]{\textsuperscript{\cite{#1}}}
+\newcommand{\cnref}[1]{\cref{#1} (\nameref{#1})}
+
+
+% Fill in your title
+\title{How can drones, using object detection technology, be used to search for and aid victims of a natural catastrophe? An article on  drone navigation and object detection.}
+
+% Do not modify the author tag below, just let it be blank
+\author{}
+
+% Fill in assignment abstract
+\begin{abstract}
+When disaster strikes it is important that we can respond effectively and reliably. If we can automate a system of drones to look for survivors we are all the more equipped to save lives. In this article I present work from four articles related to this subject and discuss applications of the concepts they present. The main subjects of discussion are drone management and object detection. More specifically I present and discuss maximum object detection range, using drone hubs for ease of management, and autonomous navigation independent from outside signals like GPS.
+\end{abstract}
+
+
+% Do not modify the following two lines
+\begin{document}
+\include{cover}
+
+
+% Insert data for the hand-in's cover page
+\makecoverpage{
+	master_of 		 = \par{Applied Computer Science},  % Use either: Applied Computer Science | Human-Computer Interaction
+	assignment_title = \par{Systems Development exam},  % Title of your assignment
+	course_code    	 = \par{MA110},  % Course code (ex. MA110)
+	course_name      = \par{Systems Development},  % Course name (ex. Systems Development)
+	due_date		 = \par{20th September 2019},  % Due date
+	student_name     = \par{Theodor Midtbø Alstad},  % Your name (or names, if group – separate names with ; semicolon)
+	student_number   = \par{865317},  % Your student ID number (or numbers, if group – separate ID numbers with ; semicolon)
+	group_size		 = 1, % Number of group members (used for the declaration text)
+}
+
+
+% Do not modify the following two lines
+\flushbottom
+\maketitle
+
+\section{Introduction}
+Object recognition software is nearly ubiquitous in the modern world of computer science. It is used to unlock computers and phones, in self-driving cars, and in the form of text recognition. It can be used to great effect with methods like to teach machines to detect different objects appearing in imaging.
+
+Using object detection, we can improve rescue efforts after natural disasters, by teaching the software to look for survivors and using it in conjunction with other methods, creating an automated tool that can look for possible victims. We could, with the proper equipment, look through areas so large a human effort would never be able to search it as effectively in the same amount of time.
+
+If we combine this technology with drones, another new technology that lends itself very well to automation, we could create an automated force that could aid and guide our rescue operations. This legion could sweep large swathes of land without taking up manpower required to crew them, or keep track of post-hurricane flooding or the boundary of a forest fire. The drones could point out victims, making rescue efforts more effective and decrease the chance of those efforts being wasted by looking for people in areas where there are none. 
+
+Given this great potential, it is critical that we manage to harness it so that we may make use of it. With human lives on the line, which they will be in the context I will discuss in this article, it is even more critical that we fully understand this technology. Failure to do so could lead to disastrous failures such as people not being registered by the drones and thus remain unsaved.
+
+In this article I will be discussing a case study on the Parrot AR Drone Power Edition\citesup{Parrot_webpage} (see \cref{tab:parrot specs} for technical specifications), and I will discuss details of its use and possible use cases for this specific drone, as well as the benefits and drawbacks of the concept as a whole.
+
+\begin{table}[h]
+\centering
+\caption{Technical specifications for our example drone, taken from \cite{Parrot_webpage}}
+\label{tab:parrot specs}
+\begin{tabular}{|c|c|}
+  \hline
+  Field of view & diagonal angle of 92$^o$ = vertical angle of 54$^o$ \\
+  Vertical pixel count & 1280 pixels\\
+  Horizontal pixel count & 720 pixels \\
+  Battery life & 36 minutes \\
+  Weight with external frame & 420 g \\
+  Weight with internal frame & 380 g \\
+  \hline
+\end{tabular}
+\end{table}
+
+
+
+\section{Related work}
+\subsection{Communication and Navigation} \label{sec:Communication and navigation}
+In order to function cohesively, the drones have to be able to communicate and navigate in an efficient manner. If strong groundwork is laid for the communications, the drones could navigate efficiently and keep from either missing areas or re-searching areas unless we want them to. \cite{Internet_of_Drones} describes in a very general way to implement a structure based on Internet of Things (IoT), calling it Internet of Drones (IoD). They tackled what they referred to as the "main sub-problem" of "airspace navigation and coordination for various applications[...]"\citesup{Internet_of_Drones}, giving a generalised solution for airway travel that could be quite useful for us.
+
+They created this generalized format by taking inspiration from three very well-established, highly relevant networks: air traffic control (ATC), cellular network, and the Internet:
+
+ATC would intuitively be the architecture of most relevance, yet their solution is likely the least relevant in a disaster-scenario. Given that drones will be occupying airspace, having collision-free airways defined for drones is useful so that the drones may operate without crashing, yet they suggest using pre-established established network of collision-free airways. Given the likelihood of a disaster changing the environment and geography, having airways defined before a disaster strikes has inherent faults, and without an ability to quickly reassess and improvise new airways, which I won't be discussing, this system would prove problematic. If this part of the general solution was to be taken whole-sale, a new set of airways would have to be set up and verified before rescue efforts could be undertaken.
+
+From the cellular network, they take inspirations regarding path reservation. This is presuming that new drones could reserve paths at any time, as with a cellular network being ready to accept calls at any time, the main philosophy being  - in the view of the article - "that a call must not be admitted if there are not enough resources to sustain it until its completion"\citesup{Internet_of_Drones}. In the context of the IoD this equates to a drone only moving through an airway if there are enough resources (i.e. airspace) to support it. Although rescue efforts should be administered by a single body, and therefore don't necessitate the system being open to any new drones, having a system in place to accommodate exactly that opens up for the ability to handle changes in the plan, for example any unexpected consequences of the disaster (which, being a disaster, should be expected) or the inclusion of any non-profit organizations. Having a system to increase flexibility as mentioned could be very beneficial, and is thus more relevant than the inspiration taken from the ATC.\\ They also take inspiration from the cell-based architecture of the cellular network, where each cell is managed by a base station, being responsible for any calls happening within that cell. This structure becomes relevant in \cnref{sec:drone hubs discussion}, where hubs are discussed, which could be modelled in a cell-based structure.
+
+The most relevant network type is the internet, which inspires methods of communication, given that the drones very purpose is information transfer from the disaster-struck area to the rescue teams. If information can be effectively sent from the drones to the rescue teams over large distances, the method modified from the internet architecture in the article could be adopted into our scenario. Being de-centralized, this system could help our drones be more autonomous, and adopting the layer-based system described as the architecture of the internet, the layers being named Application, Transport, Internet, Link, and Physical in the article, could make management and administration simpler. The mentioned de-centralized nature means that any faults, having potentially critical consequences, won't ripple through the entire system.
+
+
+\subsection{Minimum resolution}\label{sec:Minimum resolution}
+When detecting objects in an image, the level of detail in the image is important to note. Since cameras are angle-based, and renders images with greater detail the closer that image is to the lens, our ability to detect objects using lower resolution, and the resolution of our camera, limits the distance at which we can detect said objects. Since we have specified a camera quality in \cref{tab:parrot specs}, we have to find methods of detecting objects that functions in spite of a lower minimum resolution if we want to extend our detection range.
+
+\cite{Resolution_data} discusses a method for specifically detecting people in low resolution video. Using a method of detecting a human head and verifying by checking for upper bodies, they reached a "detection rate higher than 70\% when the head width is from three to eight pixels (corresponding to about 20 to 50 pixels of the human height) in 428 people"\citesup{Resolution_data}.
+
+Using 50 pixels as our minimum for human detection and the data in \cref{tab:parrot specs}, we can calculate a maximum detection range:
+\begin{table}[h]
+\centering
+\caption{Variables used in \cref{eq:max distance O def} and \cref{eq:max distance d def}}
+\label{tab:max distance variables}
+\begin{tabular}{|c|c|c|}
+	\hline
+	Variable & Description & Unit type \\	
+	\hline
+	$\theta$ & Angle of view of camera in vertical direction & radians\\
+	$d$ & Distance to object & m \\
+	$h$ & Height of object & m \\
+	$P$ & Pixel count in vertical direction & \# of pixels \\
+	\hline
+	$\rho_h = \frac{P_h}{\theta_h}$ & Pixel density in vertical direction & $\frac{\text{\# of pixels}}{\text{radians}}$ \\
+	\hline
+	$P_O$ & Pixel count of object in vertical direction & \# of pixels \\
+	\hline
+\end{tabular}
+\end{table}
+\\\\
+
+
+\begin{equation}
+  P_O = \frac{h}{d}\rho = \frac{Ph}{d\theta}
+  \label{eq:max distance O def}
+\end{equation}
+
+
+Since we want to find a maximum distance, we isolate for d:
+
+
+\begin{equation}
+\label{eq:max distance d def}
+d = \frac{h}{P_O}\rho = \frac{Ph}{P_O\theta}
+\end{equation}
+
+
+\subsection{Drone hubs} \label{sec:Drone hubs}
+Our example drone having a battery life of 36 minutes becomes a weak point if we want it to perform extensive searches through potentially flooded suburban areas after a hurricane or ruins in a city after an earthquake, and this should be addressed. A possible fix could be to set up some kind of charging station at strategic locations that the drones could use as forward-bases or hubs where, if communications are otherwise impossible or disadvantageous, they could communicate their data to rescue teams and recharge. There is also the possibility of drones carrying resources or tools, like flares or light-sticks so that the rescue teams might more easily find them, or important survival tools like floating vests or even food if rescue is far off. This will be further discussed in \cnref{sec:drone hubs discussion}.
+
+In \cite{Pathing}, the authors present a method of delivering parcels using drones. The method describes using a ground vehicle to carry several drones at once, noting parking spots where the vehicle could stop and let the drones, which they refer to as Unmanned Aerial Vehicles (UAV), deliver parcels from the vehicle. This saves on power consumption and time spent delivering, making for a more efficient system overall. 
+
+We could use the method described in \cite{Pathing} for our case. If we define the parking spaces as recharge stations and the delivery spots as search areas, the algorithms suggested in \cite{Pathing} could very well be used.
+
+\subsection{Autonomy}\label{sec:3D scan}
+In \cite{Natural_Disasters} they discuss the use of autonomous drones "[...]for assisting rescue services within the context of natural disasters"\citesup{Natural_Disasters}, as the title suggests. They bring up the problem of drones entering buildings and losing their ability to navigate using GPS. To solve this they suggest using 3D scans of the environment as a tool used to navigate within these environments, suggesting both dense 3D scan and sparse 3D scan. 
+
+Both methods, dense 3D scan and sparse 3D scan, rely on scanning points in a space in front of the drone, rotating the camera and evaluating their distance from the camera depending on how much they move across the image.
+
+Dense 3D scan, as the name suggests, populates an image with a large amount of densely packed points (see \cref{fig:dense3Dscan}), requiring a large amount of computational power to create a detailed map of the space captured by the camera. This makes it a seemingly poor fit for our purposes, being focused on being able to handle a large computational load, which our drones are ill fit to do. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{images/dense3Dscan.png}
+\caption{An example of a dense 3D scan, sourced from the discussed article\citesup{Natural_Disasters}}
+\label{fig:dense3Dscan}
+\end{figure}
+
+Sparse 3D scan, on the other hand, populates an image with a smaller amount of sparse points (see \cref{fig:sparse3Dscan}). This means it is a method that better equips our drone for continuous and fast navigation, requiring a smaller computational load to be handled.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{images/sparse3Dscan.png}
+\caption{An example of a sparse 3D scan, sourced from the discussed article\citesup{Natural_Disasters}}
+\label{fig:sparse3Dscan}
+\end{figure}
+
+These methods, specifically sparse 3D scan, should be considered when drones are evaluated as a tool, especially in situations where they are applicable.
+
+
+\section{Discussion}
+\subsection{Drone hubs} \label{sec:drone hubs discussion}
+The possibility of having hubs for the drones, where they could recharge and potentially transmit information they otherwise could not transmit over a distance, has been mentioned. These hubs would have to be transported to strategic locations somehow, as their effectiveness is dependent on how large an area the drones could cover when using these hubs as recharge stations, based on the drones flight- time and speed. In this case the cell-based architecture presented in \cnref{sec:Communication and navigation} becomes a very relevant architectural artefact, with the possibility of one hub only managing a certain area. This increases flexibility, and presents the possibility of moving drones from one hub to the other, in the case of an unforeseen event.
+
+There are several possible methods for stationing such hubs, including but not limited to:
+\begin{itemize}
+  \item Using human teams to station the hubs. This has the benefit of being reliable and having human ingenuity to account for anything unforeseen. It does, however take a lot of resources for humans to move objects like these around over a catastrophe-struck area, and there are areas humans might be unable to cross, necessitating other methods.
+  \item Transporting them using larger vehicles, like helicopters. This seems like the strongest candidate, as it combines ease of conceptualization with flexibility and speed, does not require any innovation, and it can get almost anywhere a human or drone could, and with a human crew it could even station hubs into smaller spaces if necessary.
+  \item The hubs transporting themselves. This is certainly the most intriguing option, allowing for full automation, and letting the hubs behave as larger drones. Hubs could move themselves over time without human intervention, in either unforeseen cases or entirely foreseen cases, where the strategically most advantageous spot may move over time. This could also open for the possibility for one hub managing multiple cells at different points in time, if resources are lacking and not enough drones/hubs are available to cover the necessary area simultaneously.
+\end{itemize}
+
+These hubs would mainly serve as recharge stations and communication centres, but the possibility is also open for them to act as storages for tools like flares or torches, or resources like inflatable vests or food. The viability of this has to be evaluated based on the carrying capacity of the drones used. There could be specialized delivery drones for this exact purpose, delivering materials as the search-drones report the locations of victims, perhaps based on designs similar to the drones used by Amazons delivery service Prime Air\citesup{Prime_Air}.
+
+\subsection{Scenario 1: Drone finds a victim}
+The drones we are describing have one primary purpose: Find and help victims. That means the drones must be able to, through their own abilities or with assistance from tools that are part of the hub, execute the following tasks:
+
+\begin{itemize}
+  \item Have a designated hub and cell from which to start its scan.
+  \item Coordinate with other drones within the same cell to determine scan patterns/areas.
+  \item Determine a path through its allocated area.
+  \item Follow said determined path.
+  \item Detect victims or other predetermined objects it is programmed to find.
+  \item Determine said objects location.
+  \item Report said location to a rescue team.
+\end{itemize}
+
+A drone could optionally be able to:
+
+\begin{itemize}
+  \item Deliver resources like flares, clothes or food to victims, assuming the resources are within its carrying capacity.
+  \item Physically guide the rescue teams to the victims locations.
+\end{itemize}
+
+The drones could use the following methods:
+
+\begin{itemize}
+  \item The airways as presented in \cnref{sec:Communication and navigation}, if stable airways were somehow achievable. Perhaps by using satellite-based cameras.
+  \item Reservation through celled networks governed by drone hubs as presented in \cnref{sec:Communication and navigation}.
+  \item The layered communication as presented in \cnref{sec:Communication and navigation}, using the proposed layers of (disaster zone > cell controlled by hub > individual drone).
+  \item The object detection as mentioned in \cnref{sec:Minimum resolution}
+  \item The pathing algorithm using drone hubs as presented in \cnref{sec:Drone hubs}.
+  \item The 3D scan mapping tools as presented in \cnref{sec:3D scan}.
+\end{itemize}
+
+Using this generalized scenario example, we can determine the prime functions necessary for the drone to perform. This is not taking into account the specifics of any interaction with rescuers or victims i.e. people, but only the environment and other drones.
+
+
+\subsection{Scenario 2: Mini-drones}
+Smaller drones, called Micro Air Vehicles (MAVs), should be considered for use. This is working under the assumption that they have lower quality sensors, as should be expected of a smaller craft. Say as an example they have cameras capable of 480p (480x854 pixels) as opposed to our example-drones 720p (720x1280). We can run a numerical comparison using \cref{eq:max distance d def} and assuming that the person we want to detect is at least 1 meter tall (approximately the height of a four-year old).  This gives us a maximum distance. Defining the variables as given by \cref{tab:evaluated variables} gives us the following maximum distances:
+
+\begin{equation}
+\label{eq:max dist drone}
+d_\text{drone} = \frac{1280 \text{pixels} \times 1\text{m}}{50 \text{pixels} \times \frac{3\pi}{10}} \approx 27.15\text{m}
+\end{equation}
+
+\begin{equation}
+\label{eq:max dist MAV}
+d_\text{MAV} = \frac{854 \text{pixels} \times 1\text{m}}{50 \text{pixels} \times \frac{3\pi}{10}} \approx 18.12\text{m}
+\end{equation}
+
+
+\begin{table}[h]
+\centering
+\caption{}
+\label{tab:evaluated variables}
+\begin{tabular}{|c|c|c|}
+  \hline
+  Variable & Value for drone & Value for MAV \\
+  \hline
+  $\theta$ & 54$^o$ = $\frac{3\pi}{10}$radians & 54$^o$ = $\frac{3\pi}{10}$radians \\
+  $h$ & 1m & 1m \\
+  $P$ & 1280  pixels & 854 pixels \\
+  $P_O$ & 50 pixels & 50 pixels \\
+  \hline
+\end{tabular}
+\end{table}
+
+This means that at any time a drone could scan up to a maximum distance of 27m, while an MAV of these specs could scan up to a maximum distance of 18m. A drone and an MAV could scan $\frac{54^o}{360^o \deg } = \frac{20}{3} \approx 7$ times to scan an area of respectively $\pi27.15^2 \approx 2320\text{m}^2$ and $\pi18.12^2 \approx 1030\text{m}^2$.
+
+Even with a seemingly small decrease in resolution and maximum range, the area an MAV can scan is less than half of the area a drone can. This should hopefully be made up with a decrease in construction cost, which would allow a larger quantity to be created.
+
+The MAVs smaller size would mean that they carry smaller batteries, but similarly they require less power to stay airborne. Their effective battery life is up to their architect. Their smaller size means it would be easier to create some kind of a recharge hub, requiring less power overall to keep any one MAV running. A cost analysis would of course have to be done on the construction differences between the MAVs and the drones on whether this is feasible or beneficial, but the possibility is open for a larger class of drones that can act as hubs for the MAVs.
+
+\subsection{Considerations for the human}
+What happens in the scenario where you have just survived a hurricane, you are stuck on a rooftop, you see a rescue drone coming towards you, and it flies past you? What happens when the scan fails? What could happen if the drones can't react to the people they see and they have to travel back to their hub before something can happen? How will victims react to that behaviour? What if victims see that an area is being scanned and make their way over to that area, only to make it there after it has been scanned, never being noticed?
+
+Eventual failure is a statistical truth, and should be considered unavoidable, but how close should we get to completely accurate detection? If we don't develop accurate enough methods people may die, but if we use methods that are accurate enough, they may be too expensive. More accurate methods may also cause concerns if applied in other uses, such as unethical surveillance.
+
+The question of whether we want to depend on machines in any way is relevant, the conservative option being exclusively using them as an accessory to human efforts, either using human pilots or as a pure auxiliary measure to pick up any victims our human teams might miss. Having a human in control is certainly comforting, but it must be kept in mind that this comes at the cost of the immense potential of autonomous drones.
+
+All this should be considered when building the actual architectures and artefacts, and can only be addressed in the general as hypotheticals, yet addressed it should be.
+
+
+
+%What happens if you have just gone through a hurricane and survived, you are stuck on a rooftop in a ﬂood, you see a drone coming towards you, you are happy because you will ﬁnally be saved, and the drone ﬂies past you? What happens if the scan fails? When you are using drones to scan, you must acknowledge the potential for a false negative, and the potential damages that could cause. In the best case scenario victims are located and saved later, with minimal harm done. In the worst case scenario they needed help immediately and die shortly thereafter. 
+
+%Subjects: mini-drones, considerations fro the human, cost(? pfhah, I don't have the expertise for that), other uses
+
+\section{Conclusion}
+In this article I have presented various concepts related to drones and their use in crisis-responses by referring to other works. I have, from \cite{Internet_of_Drones} in \cnref{sec:Communication and navigation}, presented a general approach to drone navigation, airspace reservation and layered communication. From \cite{Resolution_data} in \cnref{sec:Minimum resolution} I presented a way to estimate a maximum rendering distance from which you could detect a person, combined with a method for detecting people with a small amount of pixels from \cite{Resolution_data}. In \cnref{sec:Drone hubs} I referred to a pathfinding method provided by \cite{Pathing} and presented the concept of using drone hubs with which one could treat an area as a collection of zones, individually managed by a hub. Finally I presented sections from \cite{Natural_Disasters} in \cnref{sec:3D scan} regarding pathfinding and environment mapping when ordinary pathing methods like GPS are unavailable.
+
+I have discussed the use of these concepts and some of the ethical implications, and I have brought up some questions that should be asked and answered when designing an instance of the concepts discussed in this article.
+
+
+\bibliographystyle{IEEEtran} % <-- Change this line if you want to use a different citation style
+\bibliography{references} % <-- This line will generate the bibliography list automatically
+
+
+\end{document}
+
