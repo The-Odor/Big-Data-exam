@@ -5,6 +5,7 @@ from operator import itemgetter
 current_word = None
 current_count = 0
 word = None
+wholelist = []
 
 for line in sys.stdin:
     line = line.strip()
@@ -24,8 +25,13 @@ for line in sys.stdin:
         current_count += score
     else:
         if current_word:
-            print("%s,%s,%s"%(current_word, Title, current_count))
+            #print("%s,%s,%s"%(current_word, Title, current_count))
+            wholelist.append([current_word, Title, current_count])
         current_word = id
         current_count = score
 if current_word== id:
     print("%s,%s,%s "% (current_word, Title, current_count ))
+
+wholelist.sort(key = lambda x: -x[2])
+for i in range (10):
+    print(wholelist[i],"\n")

@@ -28,15 +28,19 @@ def xmlmapper(source, infile=sys.stdin):
     for x in myroot:
         if (x.attrib["PostTypeId"] == "1"):
 
+            #Some questions do not have favouritecounts????
+            try:
+                score = x.attrib["FavoriteCount"]
+            except KeyError:
+                continue
+
             #Fetching the content of body
             id = x.attrib[source]
             title = x.attrib["Title"]
-            score = x.attrib["Score"]
 
             words = cleanBody(title)
-            #print([body, rep])
             Title=" ".join(words)
-            #print(words)
+
             mapper_core([[id],[score], [Title]], "triple")
 
 xmlmapper("Id")
