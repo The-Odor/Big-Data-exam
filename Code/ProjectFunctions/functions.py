@@ -55,6 +55,6 @@ def mapper_core(words, mode="single"):
         for word in words:
             print("%s %s" %(word,1)) #Emit the word
 
-    elif mode == "double"
-        for word, count = words
+    elif mode == "double":
+        for word, count = words:
             print("%s %s" %(word,count)) #emit the words
