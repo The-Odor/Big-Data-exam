@@ -36,7 +36,7 @@ def xmlmapper(source, infile=sys.stdin):
     #Extracting the relevant section from the file
     for post in myroot:
         if (post.attrib["PostTypeId"] == "1"):
-            total += post.attrib[source]
+            total += int(post.attrib[source])
             count += 1
 
     average = total/count
