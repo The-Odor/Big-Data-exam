@@ -31,13 +31,13 @@ def xmlmapper(source, infile=sys.stdin):
     mytree = ET.parse(infile)
     myroot = mytree.getroot()
 
+    total = 0
+    count = 0
     #Extracting the relevant section from the file
     for post in myroot:
-        if (post.attrib["PostTypeId"] == "1"):
-            body = post.attrib[source]
+        if (post.attrib["PostTypeId"] == "1" and int(post.attrib["AnswerCount"]) > 0):
 
-            words = cleanBody(body)
+            count += 1
+    print("Total answered questions %d"%(count))
 
-            mapper_core(words)
-
-xmlmapper("Body")
+xmlmapper("AnswerCount")
