@@ -8,10 +8,14 @@ cleanBody, mapper_core  = proj.cleanBody, proj.mapper_core
 
 #TODO: update documentation
 """
-xmlmapper(infile)
+xmlmapper(source, infile=sys.stdin)
 main mapper function, uses cleanBody() and mapper_core()
+Counts unique words inan xml-file
 
 input:
+  string source           : xml-tag to extract from
+                            infile
+                            
   string infile=sys.stdin : parsed xml-file
                             if given a string, will look in
                             working directory for xml to parse
@@ -19,6 +23,7 @@ input:
 returns:
   None, prints words into format acceptable by Hadoop
 """
+
 def xmlmapper(source, infile=sys.stdin):
     if not isinstance(infile, str):
         infile = infile.detach()

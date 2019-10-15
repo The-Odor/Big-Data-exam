@@ -9,6 +9,8 @@ word = None
 """
 xmlmapper(source, infile=sys.stdin)
 main reducer function
+Counts words in xml-files, where the bodies are defined as 
+questions (PostTypeId = 1)
 
 input:
   None
