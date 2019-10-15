@@ -52,8 +52,10 @@ returns:
 """
 def mapper_core(words):
     if isinstance(words, list):
-      for word in words:
-        print("%s %s" %(word[0],word[1]))
+      #for word in words:
+      w1 = words[0]
+      w2 = words[1]
+      print("%s %s" %(w1,w2))
     for word in words:
         if (len(word) < 2 and (i in ignore_char for i in word)):
             #TODO: check whether second check is redundant due
