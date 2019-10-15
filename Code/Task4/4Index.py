@@ -41,9 +41,11 @@ def xmlmapper(source, infile=sys.stdin):
 
             body = title + body
 
-            body = bodyClean(body)
+            body = cleanBody(body)
 
             id = id*len(body)
+
+            # print(type(id), type(body))
 
             mapper_core([body, id], "double")
 
