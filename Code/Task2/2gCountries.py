@@ -34,10 +34,10 @@ def xmlmapper(source, infile=sys.stdin):
     #Extracting the relevant section from the file
     for post in myroot:
         if (post.attrib["PostTypeId"] == "1"):
-            body = post.attrib[source]
+            Location = post.attrib[source]
 
-            words = cleanBody(body)
+            loc = cleanBody(Location)
 
-            mapper_core(words)
+            mapper_core(loc)
 
-xmlmapper("Body")
+xmlmapper("Location")
