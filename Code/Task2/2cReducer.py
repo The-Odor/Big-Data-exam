@@ -8,7 +8,7 @@ word = None
 
 for line in sys.stdin:
     line = line.strip()
-    word,count = line.split();
+    id,rep = line.split();
 
     count = int(count)
     if current_word ==word:
