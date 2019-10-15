@@ -8,15 +8,15 @@ word = None
 
 for line in sys.stdin:
     line = line.strip()
-    id,rep = line.split();
+    id,rep = line.split(" ");
 
-    count = int(count)
-    if current_word ==word:
-        current_count += count
+    rep = int(rep)
+    if current_word ==id:
+        current_count += rep
     else:
         if current_word:
             print("%s %s "%(current_word, current_count))
-        current_word = word
-        current_count = count
-if current_word== word:
+        current_word = id
+        current_count = rep
+if current_word== id:
     print("%s %s "% (current_word, current_count))
