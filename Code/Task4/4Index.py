@@ -9,8 +9,8 @@ cleanBody, mapper_core  = proj.cleanBody, proj.mapper_core
 """
 xmlmapper(source, infile=sys.stdin)
 main mapper function, uses cleanBody() and mapper_core()
-Counts words in xml-files, where the bodies are defined as
-questions (PostTypeId = 1)
+Lists unique words in xml-files, where the bodies are 
+defined as questions (PostTypeId = 1)
 
 input:
   string source           : xml-tag to extract from
@@ -31,32 +31,21 @@ def xmlmapper(source, infile=sys.stdin):
     mytree = ET.parse(infile)
     myroot = mytree.getroot()
 
-    allwords = {}
-
     #Extracting the relevant section from the file
-    for post in myroot:
-        if (post.attrib["PostTypeId"] == "1"):
-            body = post.attrib[source]
+    for x in myroot:
+        if (x.attrib["PostTypeId"] == "1"):
+            #Fetching the content of body
+            title = x.attrib["Title"]
+            body = x.attrib["Body"]
+            id   = x.attrib["Id"]
 
-            words = cleanBody(body)
+            body = title + body
 
-            for word in words:
-                if word == "":
-                    continue
-                if word in allwords:
-                    allwords[word]+= 1
-                else:
-                    allwords[word] = 1
+            body = bodyClean(body)
 
-            # mapper_core([words, count], "double")
+            id = id*len(body)
 
-    wordslist = []
-    for word in allwords:
-        wordslist.append([word, allwords[word]])
+            mapper_core([body, id], "double")
 
-    wordslist.sort(key=lambda x: x[-1])
+xmlmapper("Title")
 
-    for word, count in wordslist:
-        print("%s %d "%(word, count))
-
-xmlmapper("Body")
