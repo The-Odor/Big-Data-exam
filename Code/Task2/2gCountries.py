@@ -9,8 +9,7 @@ cleanBody, mapper_core  = proj.cleanBody, proj.mapper_core
 """
 xmlmapper(source, infile=sys.stdin)
 main mapper function, uses cleanBody() and mapper_core()
-Counts words in xml-files, where the bodies are defined as
-questions (PostTypeId = 1)
+Counts amount of users in a given location
 
 input:
   string source           : xml-tag to extract from
@@ -33,11 +32,13 @@ def xmlmapper(source, infile=sys.stdin):
 
     #Extracting the relevant section from the file
     for post in myroot:
-        if (post.attrib["PostTypeId"] == "1"):
+        try:
             Location = post.attrib[source]
+        except KeyError:
+            continue
 
-            loc = cleanBody(Location)
+        loc = " ".join(cleanBody(Location))
 
-            mapper_core(loc)
+        print(loc, "|", 1)
 
 xmlmapper("Location")

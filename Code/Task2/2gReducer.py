@@ -1,10 +1,6 @@
 #!/usr/bin/python3
 import sys
 from operator import itemgetter
-# using a dictionary to map words to their counts
-current_word = None
-current_count = 0
-word = None
 
 """
 xmlmapper(source, infile=sys.stdin)
@@ -19,9 +15,13 @@ returns:
   None, prints words into format acceptable by Hadoop
 """
 def reducer():
+    current_word = None
+    current_count = 0
+    word = None
+
     for line in sys.stdin:
         line = line.strip()
-        word,count = line.split()
+        word,count = line.split("|")
 
         count = int(count)
         if current_word ==word:

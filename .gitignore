@@ -2,3 +2,4 @@
 *.7z
 stopwords.txt
 *.log
+*.sh
