@@ -59,3 +59,8 @@ def mapper_core(words, mode="single"):
         in1, in2 = words
         for word, count in zip(in1,in2):
             print("%s %s" %(word,count)) #emit the words
+
+    elif mode == "triple":
+        in1, in2,in3  = words
+        for id, score, title in zip(in1,in2,in3):
+            print("%s %s %s" %(id,score, title )) #emit the words

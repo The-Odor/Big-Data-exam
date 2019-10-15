@@ -26,13 +26,16 @@ def xmlmapper(source, infile=sys.stdin):
     myroot = mytree.getroot()
 
     for x in myroot:
+        if (x.attrib["PostTypeId"] == "1"):
 
-        #Fetching the content of body
-        body = x.attrib[source]
-        rep = x.attrib["Reputation"]
-        #words = cleanBody(body)
-        #print([body, rep])
+            #Fetching the content of body
+            id = x.attrib[source]
+            title = x.attrib["Title"]
+            score = x.attrib["Score"]
 
-        mapper_core([[body], [rep]], "double")
+            words = cleanBody(title)
+            #print([body, rep])
 
-xmlmapper("DisplayName")
+            mapper_core([[id],[score], [words]], "triple")
+
+xmlmapper("Id")
