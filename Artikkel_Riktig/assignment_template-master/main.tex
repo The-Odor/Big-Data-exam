@@ -74,7 +74,7 @@ In this assignment we parsed a dataset, in the form of XMLs, through a Hadoop- a
 	assignment_title = \par{ Exploring Bitcoin} ,  % Title of your assignment
 	course_code    	 = \par{MA120},  % Course code (ex. MA110)
 	course_name      = \par{Big Data},  % Course name (ex. Systems Development)
-	due_date		 = \par{18 Oktober},  % Due date
+	due_date		 = \par{18.October 2019},  % Due date
 	student_name     = \par{Theodore Midtbø Alstad ; Howie Chen},  % Your name (or names, if group – separate names with ; semicolon)
 	student_number   = \par{865317 ; 866354},  % Your student ID number (or numbers, if group – separate ID numbers with ; semicolon)
 	group_size		 = 2, % Number of group members (used for the declaration text)
@@ -189,7 +189,7 @@ The reducer receives the mapper outputs and sums them up \\ \\
 \textbf{Assumption}: Write a pig script to select top 10 listed words after removing the stopwords from \textit{Posts.xml}. The output should print out top 10 listed words and the corresponding occurrence rate.\\ \\
 \textbf{Implementation} Given this task being based on 1d StopWords, the mapper and reducer are the same for both tasks. Our pig loaded the output from the MapReduce job, ordered it by count, limited it to 10 elements and stored it into a text file: 1ePig_Output.txt \\ \\
 \textbf{Notes/Reflection} We chose for this pig script to load its dataset from an hdfs cluster as opposed to a local storage location
-\lstinputlisting[firstline=1,lastline=10,title=1e\_output]{output1e.txt}
+\lstinputlisting[firstline=1,lastline=10,title=1ePig\_output]{output1e.txt}
 
 \subsection{Tags}
 \textbf{Assumption}: Write a MapReduce job to create a dictionary over unique tags in  \textit{Posts.xml}. The result should print the unique tags.\\ \\
