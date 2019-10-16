@@ -1,16 +1,15 @@
 #!/usr/bin/python3
 import sys
-import xml.etree.ElementTree as ET
 sys.path.append('../') #allows access functions in parallel folder
 import ProjectFunctions.functions as proj
 
-cleanBody, mapper_core  = proj.cleanBody, proj.mapper_core
+cleanBody, parser = proj.cleanBody, proj.xmlparser
 
 """
 xmlmapper(source, infile=sys.stdin)
-main mapper function, uses cleanBody() and mapper_core()
+main mapper function, uses cleanBody()
 Counts words in xml-files, where the bodies are defined as
-questions (PostTypeId = 1)
+questions (PostTypeId = 1). Uses a combiner
 
 input:
   string source           : xml-tag to extract from
@@ -24,22 +23,18 @@ returns:
   None, prints words into format acceptable by Hadoop
 """
 def xmlmapper(source, infile=sys.stdin):
-    if not isinstance(infile, str):
-        infile = infile.detach()
-
-    #Making the xml-file readable
-    mytree = ET.parse(infile)
-    myroot = mytree.getroot()
+    parsed = parser(infile)
 
     allwords = {}
 
-    #Extracting the relevant section from the file
-    for post in myroot:
+    # Iterates through each xml-row and extracts data
+    for post in parsed:
         if (post.attrib["PostTypeId"] == "1"):
             body = post.attrib[source]
 
             words = cleanBody(body)
 
+            #Combiner
             for word in words:
                 if word == "":
                     continue
@@ -48,8 +43,7 @@ def xmlmapper(source, infile=sys.stdin):
                 else:
                     allwords[word] = 1
 
-            # mapper_core([words, count], "double")
-
+    #Converts allwords from dict to list
     wordslist = []
     for word in allwords:
         wordslist.append([word, allwords[word]])
