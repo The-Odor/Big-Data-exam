@@ -33,18 +33,21 @@ def reducer():
             current_word = Id
             current_count = score
     if current_word== Id:
-        print("%s,%s,%s "% (current_word, Title, current_count))
+        wholelist.append([current_word, Title, current_count])
 
     wholelist.sort(key = lambda x: -x[2])
-    for i in range(10):
-        out = ""
-        for j in wholelist[i]:
-            out += str(j) + ","
-        # for i in out:
-        #     print(i, end=", ")
-        # print()
 
-        # print(wholelist[i],"\n")
-        print(out[:-1])
+    for i in range(10):
+        out = wholelist[i]
+
+        idout    = out[0]
+        questout = out[1]
+        scoreout = out[2]
+
+    	#Text formatting
+        outTrue = idout + ", " + " "*(6-len(idout)) +\
+                  questout + ", " + str(scoreout)
+
+        print(outTrue)
 
 reducer()
