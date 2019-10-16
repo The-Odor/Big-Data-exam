@@ -1,0 +1,186 @@
+% Do not modify these
+\documentclass[fleqn,10pt]{wlscirep}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+
+
+% -- Insert any custom LaTeX packages here --
+
+% \package{natbib} % <-- Required for the Chicago citation style
+% \package{apacite} % <-- Required for the APA citation style
+% If you decide to use one of the styles above, remember to change the \bibliographystyle{} at the bottom of the document too!
+
+\usepackage{listings} % <-- Required if you want to display program source code in your paper.
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+ 
+\urlstyle{same}
+
+% -- End of custom LaTeX packages --
+
+
+% Fill in your title
+\title{Exploring Bitcoin }
+
+% Do not modify the author tag below, just let it be blank
+\author{}
+
+% Fill in assignment abstract
+\begin{abstract}
+In this assignment we parsed a dataset, in the form of XMLs, through a Hadoop- and Pig apache. We learned how to write MapReduce jobs and Pig scripts, and how effective it is on our dataset based on XML files from Bitcoin stack exchange. 
+
+\end{abstract}
+
+
+% Do not modify the following two lines
+\begin{document}
+\include{cover}
+
+
+% Insert data for the hand-in's cover page
+\makecoverpage{
+	master_of 		 = \par{Applied Computer Science},  % Use either: Applied Computer Science | Human-Computer Interaction
+	assignment_title = \par{ Exploring Bitcoin} ,  % Title of your assignment
+	course_code    	 = \par{MA120},  % Course code (ex. MA110)
+	course_name      = \par{Big Data},  % Course name (ex. Systems Development)
+	due_date		 = \par{18 Oktober},  % Due date
+	student_name     = \par{Theodore Midtbø Alstad ; Howie Chen},  % Your name (or names, if group – separate names with ; semicolon)
+	student_number   = \par{865317 ; 866354},  % Your student ID number (or numbers, if group – separate ID numbers with ; semicolon)
+	group_size		 = 2, % Number of group members (used for the declaration text)
+}
+
+
+% Do not modify the following two lines
+\flushbottom
+\maketitle
+
+
+% --INTRODUCTION--
+\section*{Introduction}
+We choose to work together because both of us have python background, therefor we choose python as main programming language. We explored Bitcoin as given dataset from \url{archive.org/download/stackexchange/bitcoin.stackexchange.com.7z}  through Apaches: Hadoop and Pig. 
+
+% --FUNCTIOS %-- 
+\section*{Main functions}
+
+% --TASK1--
+\section*{Task 1 Warmup}
+%This part of the task is about get to know how hadoop- and pig apache works and how to parse XML  files throught python code. 
+\subsection*{1a) WordCount}
+\textbf{Assumption}: Count the words in body of questions PostTypeID="1"  in the \textit{Posts.xml}  file. The result should be how many times a word occur in the body of questions.\\ \\
+\textbf{Implementation}Hello hello \\ \\
+\textbf{Notes/Reflection} bye bye  \\ \\
+
+\subsection*{1b) Unique words}
+\textbf{Assumption}: Write a MapReduce job where the result should be unique words in the titles PostTypeID="1" in the \textit{Posts.xml} File. \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{1c) MoreThan10}
+\textbf{Assumption}: Write a simple python code to check how many words there is in the title in the \textit{Posts.xml}. The result should output how many titles are longer than 10 words.  \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{1d) Stopwords}
+\textbf{Assumption}: Write a simple python code based on task 1a to exclude \href{https://raw.githubusercontent.com/naimdjon/stopwords/master/stopwords.txt}{stopwords} from body of questions PostTypeID="1" in the \textit{Posts.xml}. The output should be textfile without any stopwords. \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{1e) Pig top 10}
+\textbf{Assumption}: Write a pig script to select top 10 listed words after removing the stopwords from \textit{Posts.xml}. The output should print out top 10 listed words.\\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{1f) Tags}
+\textbf{Assumption}: Write a MapReduce job to create a dictionary over unique tags in  \textit{Posts.xml}. \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+% --TASK2--
+\section*{Task 2 Discover}
+%This part of the task is about to looking through several 
+
+\subsection*{2a Counting) }
+\textbf{Assumption}: Write a simple python code to list how many unique users in \textit{Users.xml}. \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{2b Unique users) }
+\textbf{Assumption}:  \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{2c Top miners) }
+\textbf{Assumption}:  \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{2d Top questions) }
+\textbf{Assumption}:  \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{2e Favorite questions) }
+\textbf{Assumption}:  \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{2f Average answers) }
+\textbf{Assumption}:  \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{2g Countries) }
+\textbf{Assumption}:  \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{2h Names) }
+\textbf{Assumption}:  \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{2i) Answers }
+\textbf{Assumption}:  \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+% --TASK3--
+\section*{Task 3 Numbers}
+
+\subsection*{3a) Bigram }
+\textbf{Assumption}:  \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{3b) Trigram }
+\textbf{Assumption}:  \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{3c) Combiner }
+\textbf{Assumption}:  \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\subsection*{3d) Useless}
+\textbf{Assumption}:  \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+% --TASK4--
+\section*{Task 4 Search engine}
+\subsection*{4a) Title index}
+\textbf{Assumption}:  \\ \\
+\textbf{Implementation}  \\ \\
+\textbf{Notes/Reflection}
+
+\section*{Conclusion}
+% Do not modify this last lines
+\end{document}
