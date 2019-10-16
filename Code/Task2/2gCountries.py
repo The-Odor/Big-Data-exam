@@ -7,7 +7,7 @@ cleanBody, mapper_core, parser = proj.cleanBody, proj.mapper_core, proj.xmlparse
 
 """
 xmlmapper(source, infile=sys.stdin)
-main mapper function, uses cleanBody() and mapper_core()
+main mapper function, uses cleanBody()
 Counts amount of users in a given location
 
 input:

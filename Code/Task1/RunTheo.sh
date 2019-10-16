@@ -3,8 +3,8 @@
 # 2. the current directory contains files mapper.py and reducer.py for mapper and reducer code respectively
 
 #Simplify task change further
-task=2g
-taskname=countries
+task=2i
+taskname=answers
 
 #Simplify task change
 mapperfile=$task$taskname.py
