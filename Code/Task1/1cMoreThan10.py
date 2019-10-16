@@ -1,17 +1,20 @@
 #!/usr/bin/python3
 import sys
-import xml.etree.ElementTree as ET
 sys.path.append('../') #allows access functions in parallel folder
 import ProjectFunctions.functions as proj
 
-cleanBody, mapper_core  = proj.cleanBody, proj.mapper_core
+cleanBody, mapper_core, parser = proj.cleanBody, proj.mapper_core, proj.xmlparser
 
-#TODO: update documentation
 """
 xmlmapper(infile)
-main mapper function, uses cleanBody() and mapper_core()
+main mapper function, uses cleanBody()
+Outputs an integer of how many questions (PostTypeId = 1)
+have 10 or more words in their titles (including stopwords)
 
 input:
+  string source           : xml-tag to extract from
+                            infile
+
   string infile=sys.stdin : parsed xml-file
                             if given a string, will look in
                             working directory for xml to parse
@@ -20,21 +23,20 @@ returns:
   None, prints words into format acceptable by Hadoop
 """
 def xmlmapper(source, infile=sys.stdin):
-    if not isinstance(infile, str):
-        infile = infile.detach()
-    mytree = ET.parse(infile)
-    myroot = mytree.getroot()
+    parsed = parser(infile)
+
     count = 0
-    for x in myroot:
-        if (x.attrib["PostTypeId"] == "1"):
-            #Fetching the content of body
-            body = x.attrib[source]
 
+    # Iterates through each xml-row and extracts data
+    for titles in parsed:
+        if titles.attrib["PostTypeId"] == "1":
+            title = titles.attrib[source]
 
-            words = cleanBody(body)
+            words = cleanBody(title)
 
             if len(words) >10 :
                 count += 1
+    
     print (count)
-    return count
+
 xmlmapper("Title")
