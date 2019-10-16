@@ -1,17 +1,20 @@
 #!/usr/bin/python3
 import sys
-import xml.etree.ElementTree as ET
 sys.path.append('../') #allows access functions in parallel folder
 import ProjectFunctions.functions as proj
 
-cleanBody, mapper_core  = proj.cleanBody, proj.mapper_core
+cleanBody, mapper_core, parser = proj.cleanBody, proj.mapper_core, proj.xmlparser
 
-#TODO: update documentation
 """
 xmlmapper(infile)
 main mapper function, uses cleanBody() and mapper_core()
+Combined with 1ePig.pig, lists top 10 words (not counting
+stopwords) found in titles
 
 input:
+  string source           : xml-tag to extract from
+                            infile
+
   string infile=sys.stdin : parsed xml-file
                             if given a string, will look in
                             working directory for xml to parse
@@ -21,18 +24,14 @@ returns:
 """
 
 def xmlmapper(source, infile=sys.stdin):
-    if not isinstance(infile, str):
-        infile = infile.detach()
-    mytree = ET.parse(infile)
-    myroot = mytree.getroot()
+    parsed = parser(infile)
 
-    for x in myroot:
-        if (x.attrib["PostTypeId"] == "1"):
-            #Fetching the content of body
-            body = x.attrib[source]
+    # Iterates through each xml-row and extracts data
+    for titles in parsed:
+        if (titles.attrib["PostTypeId"] == "1"):
+            title = titles.attrib[source]
 
-            words = cleanBody(body)
-
+            words = cleanBodytitle)
 
             for Stop in StopW:
                 if Stop in words:
@@ -41,11 +40,11 @@ def xmlmapper(source, infile=sys.stdin):
             mapper_core(words)
 
 
+# Extracts stopwords to a useable format
 with open("StopWords.txt","r") as StopWords:
     StopW = StopWords.readlines()
     StopW = [i[:-1] for i in StopW[:-1]] + [StopW[-1]]
     for i in range(len(StopW)):
         StopW[i] = StopW[i].replace("'","")
-        #print(StopW[i])
 
 xmlmapper("Title")

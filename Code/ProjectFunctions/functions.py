@@ -54,13 +54,36 @@ returns:
 def mapper_core(words, mode="single"):
     if mode == "single":
         for word in words:
-            print("%s %s" %(word,1)) #Emit the word
+            if word not in ["", " "]:
+              print("%s %s" %(word,1)) #Emit the word
 
     elif mode == "double":
         in1, in2 = words
         for word, count in zip(in1,in2):
-            print("%s %s" %(word,count)) #emit the words
+            if word not in ["", " "]:
+                print("%s %s" %(word,count)) #emit the words
+
     elif mode == "triple":
         in1, in2,in3  = words
         for id, score, title in zip(in1,in2,in3):
-            print("%s %s %s" %(id,score, title )) #emit the words
+            print("%s %s %s" %(id,score, title)) #emit the words
+
+
+"""
+xmlparser(infile):
+Our chosen method for interpreting our dataset. Takes up
+a larger amount of memory for larger filesizes, but is
+fast enough and small enough for its application here
+
+input:  
+  infile : unparsed xml-file
+
+returns:
+  myroot : parsed xml-file
+"""
+def xmlparser(infile):
+    if not isinstance(infile, str):
+        infile = infile.detach()
+    mytree = ET.parse(infile)
+    myroot = mytree.getroot()
+    return myroot
