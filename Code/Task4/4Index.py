@@ -42,6 +42,8 @@ def xmlmapper(source, infile=sys.stdin):
                     title = row.attrib["Title"]
                 except KeyError:
                     title = "" #answers have no title
+            else:
+                raise Exception("PostTypeId neither 1 nor 2 while being 1 or 2")
 
             body = title + body
             body = cleanBody(body)
@@ -51,7 +53,11 @@ def xmlmapper(source, infile=sys.stdin):
                 if word == "":
                     continue
                 if word in mappedWords:
-                  mappedWords[word].append()
+                    if id not in mappedWords[word]:
+                        mappedWords[word].append(id)
+                else:
+                    mappedWords[word] = [id]
+            # mappedWords = body
 
             id = [int(id)]*len(mappedWords)
 
