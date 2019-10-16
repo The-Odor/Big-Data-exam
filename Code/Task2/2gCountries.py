@@ -24,7 +24,7 @@ returns:
 def xmlmapper(source, infile=sys.stdin):
     parsed = parser(infile)
     
-    #Extracting the relevant section from the file
+    # Iterates through each xml-row and extracts data
     for post in parsed:
         try:
             Location = post.attrib[source]

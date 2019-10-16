@@ -157,42 +157,44 @@ def xmlparser(infile):
 % --TASK1--
 \section{Task 1 Warmup}
 %This part of the task is about get to know how hadoop- and pig apache works and how to parse XML  files throught python code. 
-\subsection{a WordCount}
+\subsection{WordCount}
 \textbf{Assumption}: Count the words in body of questions PostTypeID="1"  in the \textit{Posts.xml}  file. The result should be how many times a word occur in the body of questions.\\ \\
-\textbf{Implementation}The will  \\ \\
-\textbf{Notes/Reflection} bye bye  \\ \\
+\textbf{Implementation} The mapper uses the xmlparser function to parse an XML-file, iterates through all rows in parsed file, cleans text using the cleanBody function and prints output for the reducer script by using the mapper\{_}core function.
+The reducer receives the mapper output, parses it and loops through the output. A counter variable is used to track repeated words, outputting the word with the counter when the word stops repeating. \\ \\
+\textbf{Notes/Reflection} Here the choices made building the cleanBody function affects the output, interpreting some things as words that clearly are not. See line 7 in 1a_output for example; a<br>, an html line break element, has been turned into the not-word abr. \\ \\
 
 \lstinputlisting[firstline=500,lastline=510,title=1a\_output]{output1a.txt}
 
 \subsection{Unique words}
 \textbf{Assumption}: Write a MapReduce job where the result should be unique words in the titles PostTypeID="1" in the \textit{Posts.xml} File. \\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} This MapReduce job functions as 1a WordCount does, except it does not count the words and it looks through the titles instead of the bodies. \\ \\
+\textbf{Notes/Reflection} Here again the choices made building the cleanBody function affects the output.
 \lstinputlisting[firstline=500,lastline=510,title=1b\_output]{output1b.txt}
 
 \subsection{MoreThan10}
 \textbf{Assumption}: Write a simple python code to check the title length in \textit{Posts.xml}. The result should output how many titles have more than 10 words.  \\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} The mapper functions as the mapper in 1a WordCount, except it keeps a counter for the titles of more than 10 words and it outputs the final counter instead of using mapper\{_}core.
+The reducer receives the mapper outputs and sums them up \\ \\
+\textbf{Notes/Reflection} This MapReduce job is simpler, the reducer is unnecessary outside an environment with clusters.
 \lstinputlisting[firstline=1,lastline=1,title=1c\_output]{output1c.txt}
 
 \subsection{Stopwords}
 \textbf{Assumption}: Write a simple python code based on task 1a to exclude \href{https://raw.githubusercontent.com/naimdjon/stopwords/master/stopwords.txt}{stopwords} from body of questions PostTypeID="1" in the \textit{Posts.xml}. The output should be text file without any stopwords. \\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} This MapReduce job functions as 1a WordCount does, except it has a section for the iterative removal of stopwords, as defined in \href{https://raw.githubusercontent.com/naimdjon/stopwords/master/stopwords.txt}{StopWords.txt} \\ \\
+\textbf{Notes/Reflection} Given how we built cleanBody, we chose to remove the apostrophes (') from the stopwords, turning words like "we're" to "were"
 \lstinputlisting[firstline=500,lastline=509,title=1d\_output]{output1d.txt}
 
 
 \subsection{Pig top 10}
 \textbf{Assumption}: Write a pig script to select top 10 listed words after removing the stopwords from \textit{Posts.xml}. The output should print out top 10 listed words and the corresponding occurrence rate.\\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} Given this task being based on 1d StopWords, the mapper and reducer are the same for both tasks. Our pig loaded the output from the MapReduce job, ordered it by count, limited it to 10 elements and stored it into a text file: 1ePig_Output.txt \\ \\
+\textbf{Notes/Reflection} We chose for this pig script to load its dataset from an hdfs cluster as opposed to a local storage location
 \lstinputlisting[firstline=1,lastline=10,title=1e\_output]{output1e.txt}
 
 \subsection{Tags}
 \textbf{Assumption}: Write a MapReduce job to create a dictionary over unique tags in  \textit{Posts.xml}. The result should print the unique tags.\\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} This MapReduce job functions similarly to 1a WordCount, except it has to be aware of whether the post has a tag at all or not, being implemented when tags are extracted from the row \\ \\
+\textbf{Notes/Reflection} The tags are separated by chevrons, and would be fused by cleanBody, so we elected to replace them with spaces. Some of the posts lacked any tag attribute, so we elected to pass over those.
 \lstinputlisting[firstline=500,lastline=510,title=1f\_output]{output1f.txt}
 
 
@@ -200,59 +202,58 @@ def xmlparser(infile):
 \section{Task 2 Discover}
 %This part of the task is about to looking through several 
 
-\subsection{Counting }
+\subsection{Counting}
 \textbf{Assumption}: We chose to write a MapReduce job to count the total unique users there are in \textit{Users.xml}. The result will print out how many unique users there are.\\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} This MapReduce job functions similarly to 1c MoreThan10, except it counts all unique users instead of titles with more than 10 words. \\ \\
+\textbf{Notes/Reflection} We interpreted "unique user" as a user with a unique Id attribute.
 \lstinputlisting[firstline=1,lastline=1,title=2a\_output]{output2a.txt}
 
-\subsection{Unique users }
-\textbf{Assumption}: Write a MapReduce job based on task 2a) to create a mapper  and a reducer functions in \textit{Users.xml}. The result should contain unique users in the dataset.  \\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\subsection{Unique users}
+\textbf{Assumption}: Write a MapReduce job based on 2a Counting to create a mapper  and a reducer functions in \textit{Users.xml}. The result should contain unique users in the dataset.  \\ \\
+\textbf{Implementation} This MapReduce job functions as 2a Counting does, except it outputs all unique users instead of a count of them \\ \\
+\textbf{Notes/Reflection} Here the implementation of cleanBody is modified with a join function as cleanBody returns a list where we want a string. Since usernames can contain spaces, we elected to instead use | as a separator in hadoop.
  \lstinputlisting[firstline=500,lastline=510,title=2b\_output]{output2b.txt}
 
-\subsection{Top miners }
+\subsection{Top miners}
 \textbf{Assumption}:Write a MapReduce job to find top 10 users based on attribute Reputation="x" in \textit{Users.xml}. The result will print out top 10 users based on their reputation. \\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} This mapper job is based on 2b Unique users, except instead of putting out name and id, it puts out name and the reputation attribute. Here, reputation is given to mapper\{_}core as a one-element list (mapper\{_}core called with arguments (name, [reputation])) due to it looping through its inputs. The reducer is the same as the reducer of 2b Unique users. The pig script functions the same way as in 1e Pig Top 10\\ \\
+\textbf{Notes/Reflection} We elected here to use pig to order the MapReduce output in order to get experience.
 \lstinputlisting[firstline=1,lastline=10,title=2c\_output]{output2c.txt}
 
-\subsection{Top questions }
+\subsection{Top questions}
 \textbf{Assumption}: Write a MapReduce job to find top 10 title questions PostTypeID="1"  based on attribute Score="x" in \textit{Posts.xml}.The result lists top 10 questions using id, question and the score.\\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} This mapper job functions similarly to 2c Top miners except it puts out 3 parsed attributes using the "triple"-mode of mapper\{_}core. The reducer performs the reduction and ordering, finding the 10 highest score values. It does this by inserting every input into a list instead of printing it, using pythons standard function string.sort to order it. It then iterates through the 10 highest values to give an output \\ \\
+\textbf{Notes/Reflection} The reducer could potentially be improved by only keeping 10 elements in the list at once, changing them out as higher scores were encountered.
 \lstinputlisting[firstline=1,lastline=10,title=2d\_output]{output2d.txt}
 
 \subsection{Favorite questions }
 \textbf{Assumption}: Write a MapReduce job to find top 10 title questions PostTypeID="1"  based on attribute FavoriteCount="x" in \textit{Posts.xml}.The result lists top 10 questions like id, question and the score.\\ \\ \\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} This MapReduce job is the same as 2d Top questions, except it extracts the FavoriteCount-attribute instead of the score \\ \\
+\textbf{Notes/Reflection} Here, like 1f Tags, some posts had to be skipped due to their lacking any FavoriteCount-attribute.
 \lstinputlisting[firstline=1,lastline=10,title=2e\_output]{output2e.txt}
 
 \subsection{Average answers}
 \textbf{Assumption}: \\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} This mapper functions similarly to  1c MoreThan10, except for having two counters, one for score and the other for users parsed, which are averaged at the end. The reducer is the same as the reducer in 2a Counting \\ \\
+\textbf{Notes/Reflection} We have elected to not limit the amount of decimals.
 \lstinputlisting[firstline=1,lastline=10,title=2f\_output]{output2f.txt}
 
-\subsection{Countries }
+\subsection{Countries}
 \textbf{Assumption}: We chose to write a MapReduce job to discover users by countries in \textit{Users.xml}. The result lists different countries and corresponding users. \\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} This mapper functions similarly to 1f tags, except instead of cleaning the tags, it uses "|" as a separator, since spaces are part of location. \\ \\
+\textbf{Notes/Reflection} We have elected to separate by location and not country, since by our judgement these locations are typed in by users. Places like "California, USA", "California, United States", and "Washington DC, USA" will thus be counted as different locations.
 \lstinputlisting[firstline=1,lastline=10,title=2g\_output]{output2g.txt}
 
 \subsection{Names}
 \textbf{Assumption}We chose to write a MapReduce job to find the most popular names in \textit{Users.xml}. The result lists top 10 common names and how many.  \\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} This mapper functions similarly to 2g Countries, except it extracts the DisplayName-attribute in place of the Location-attribute. The reducer functions similarly to 2d Top questions, except it parses differently and has different text formatting for the output due to the decrease from 3 to 2 arguments \\ \\
+\textbf{Notes/Reflection} Here the most common name is User. This is due to our choice of removing numbers in cleanBody, combinging User1, User2, User3 etc.
 \lstinputlisting[firstline=1,lastline=21,title=2h\_output]{output2h.txt}
 
 
 \subsection{Answers }
 \textbf{Assumption}: Write a simple python code to find how many titles of questions PostTypeId="x" have at least one answers based on attribute AnswerCount in \textit{Users.xml}. The result prints out how many questions have been answered.  \\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} This mapper functions in the same way as 1c MoreThan10 except it checks whether AnswerCount is larger than or equal to 1 instead of whether the title word length is larger than 10
 \lstinputlisting[firstline=1,lastline=10,title=2i\_output]{output2i.txt}
 
 % --TASK3--
