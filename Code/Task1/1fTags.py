@@ -21,12 +21,18 @@ returns:
   None, prints words into format acceptable by Hadoop
 """
 def xmlmapper(source, infile=sys.stdin):
-    parsed = parses(infile)
+    parsed = parser(infile)
 
+    tag = None
     # Iterates through each xml-row and extracts data
     for tags in parsed:
-        tag = tags.attrib[source]
+        try:
+            tag = tags.attrib[source]  
+        except KeyError:
+            continue
 
+        tag = tag.replace(">", " ")
+        tag = tag.replace("<", "")
         words = cleanBody(tag)
 
         mapper_core(words)

@@ -36,7 +36,7 @@ if current_word== word:
     ids.append(id)
     idprint = ""
     for id in ids:
-        idprint += "," + id
+        idprint += "," + str(id)
     print("%s, %s"%(current_word, idprint[1:]))
 
     current_word = word

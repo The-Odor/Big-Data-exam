@@ -32,12 +32,17 @@ def xmlmapper(source, infile=sys.stdin):
     myroot = mytree.getroot()
 
     #Extracting the relevant section from the file
-    for x in myroot:
-        if (x.attrib["PostTypeId"] == "1"):
+    for x in myroot[:10000]:
+        if (x.attrib["PostTypeId"] in ["1", "2"]):
             #Fetching the content of body
-            title = x.attrib["Title"]
             body = x.attrib["Body"]
-            id   = x.attrib["Id"]
+
+            if x.attrib["PostTypeId"] == "1":
+                id = x.attrib["Id"]
+                title = x.attrib["Title"]
+            else:
+                id = x.attrib["ParentId"]
+                title = ""
 
             body = title + body
 

@@ -15,7 +15,6 @@ non-case sensitive, removes HTML formatting, treats anything separeted
 by blank space or / as separate words. Mispellings, names, filenames,
 functionnames etc. will be counted as separate words
 
-
 input:
   string body : string to be formatted
 

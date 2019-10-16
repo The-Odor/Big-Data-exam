@@ -3,12 +3,13 @@ import sys
 sys.path.append('../') #allows access functions in parallel folder
 import ProjectFunctions.functions as proj
 
-cleanBody, mapper_core, parser = proj.cleanBody, proj.mapper_core, proj.xmlparser
+cleanBody, parser = proj.cleanBody, proj.xmlparser
 
 """
 xmlmapper(infile)
 main mapper function, uses cleanBody() and mapper_core()
-Lists all unique users in an xml databse
+Lists all unique users in an xml databse by unique Id
+and displayname
 
 input:
   string source           : xml-tag to extract from
@@ -25,9 +26,12 @@ def xmlmapper(source, infile=sys.stdin):
     parsed = parser(infile)
 
     # Iterates through each xml-row and extracts data
-    for Id in parsed:
+    for user in parsed:
 
-        userID = Id.attrib[source]
+        userID   = user.attrib[source]
+        userName = user.attrib["DisplayName"]
 
-        print(userID)
+        userName = " ".join(cleanBody(userName))
+
+        print(userID + "|" + userName)
 xmlmapper("Id")
