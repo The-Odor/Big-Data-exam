@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-import ProjectFunctions.functions as proj
 import sys
 sys.path.append('../') #allows access functions in parallel folder
+import ProjectFunctions.functions as proj
 
 cleanBody, mapper_core, parser = proj.cleanBody, proj.mapper_core, proj.xmlparser
 

@@ -3,10 +3,10 @@ import sys
 # using a dictionary to map words to their counts
 
 """
-xmlmapper(source, infile=sys.stdin)
-main mapper function, uses cleanBody() and mapper_core()
+reducer()
+main reducer function
 Counts words in xml-files, where the bodies are defined as
-questions (PostTypeId = 1). Removes stopwords as defined in
+questions (PostTypeId = 1). Stopwords removed as defined in
 stopwords.txt, taken taken on 16.10.2019 from
 https://raw.githubusercontent.com/naimdjon/stopwords/master/stopwords.txt
 
@@ -41,3 +41,5 @@ def reducer():
             current_count = count
     if current_word== word:
         print("%s %s "% (current_word, current_count))
+
+reducer()

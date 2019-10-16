@@ -1,17 +1,18 @@
 #!/usr/bin/python3
 import sys
-import xml.etree.ElementTree as ET
 sys.path.append('../') #allows access functions in parallel folder
 import ProjectFunctions.functions as proj
 
-cleanBody, mapper_core  = proj.cleanBody, proj.mapper_core
+cleanBody, mapper_core, parser = proj.cleanBody, proj.mapper_core, proj.xmlparser
 
-#TODO: update documentation
 """
-xmlmapper(infile)
-main mapper function, uses cleanBody() and mapper_core()
+xmlmapper(source, infile=sys.stdin)
+creates a dictionary over unique tags in an xml-file
 
 input:
+  string source           : xml-tag to extract from
+                            infile
+
   string infile=sys.stdin : parsed xml-file
                             if given a string, will look in
                             working directory for xml to parse
@@ -20,16 +21,13 @@ returns:
   None, prints words into format acceptable by Hadoop
 """
 def xmlmapper(source, infile=sys.stdin):
-    if not isinstance(infile, str):
-        infile = infile.detach()
-    mytree = ET.parse(infile)
-    myroot = mytree.getroot()
+    parsed = parses(infile)
 
-    for x in myroot:
-        #Fetching the content of body
-        body = x.attrib[source]
+    # Iterates through each xml-row and extracts data
+    for tags in parsed:
+        tag = tags.attrib[source]
 
-        words = cleanBody(body)
+        words = cleanBody(tag)
 
         mapper_core(words)
 

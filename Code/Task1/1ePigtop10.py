@@ -31,7 +31,7 @@ def xmlmapper(source, infile=sys.stdin):
         if (titles.attrib["PostTypeId"] == "1"):
             title = titles.attrib[source]
 
-            words = cleanBodytitle)
+            words = cleanBody(title)
 
             for Stop in StopW:
                 if Stop in words:
