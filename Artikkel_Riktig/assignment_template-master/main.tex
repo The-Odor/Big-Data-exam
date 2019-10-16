@@ -68,6 +68,20 @@ We choose to work together because both of us have python background, therefor w
 
 % --FUNCTIOS %-- 
 \section*{Main functions}
+The datasets cointains only XML files, which it means values to different attritubutes have alot of  ascii charcters, punctiations,numbers and HTML tags. We also needed a function to parse the XML files to Hadoop and to create a mapper for the data.  Therefor we created three different main functions thats being reused through the project. : 
+\subsection{cleanBody}
+Formats string for mapper function
+non-case sensitive, removes HTML formatting, treats anything separeted
+by blank space or / as separate words. Mispellings, names, filenames,
+functionnames etc. will be counted as separate words
+
+input:
+  string body : string to be formatted
+
+returns:
+  string body : formatted string
+"""
+\lstinputlisting[language = Python,firstline=500,lastline=510]{output1a.txt}
 
 % --TASK1--
 \section*{Task 1 Warmup}
@@ -77,30 +91,39 @@ We choose to work together because both of us have python background, therefor w
 \textbf{Implementation}Hello hello \\ \\
 \textbf{Notes/Reflection} bye bye  \\ \\
 
+\lstinputlisting[firstline=500,lastline=510]{output1a.txt}
+
 \subsection*{1b) Unique words}
 \textbf{Assumption}: Write a MapReduce job where the result should be unique words in the titles PostTypeID="1" in the \textit{Posts.xml} File. \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+\lstinputlisting[firstline=500,lastline=510]{output1b.txt}
 
 \subsection*{1c) MoreThan10}
-\textbf{Assumption}: Write a simple python code to check how many words there is in the title in the \textit{Posts.xml}. The result should output how many titles are longer than 10 words.  \\ \\
+\textbf{Assumption}: Write a simple python code to check the title length in \textit{Posts.xml}. The result should output how many titles have more than 10 words.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+\lstinputlisting[firstline=1,lastline=1]{output1c.txt}
 
 \subsection*{1d) Stopwords}
 \textbf{Assumption}: Write a simple python code based on task 1a to exclude \href{https://raw.githubusercontent.com/naimdjon/stopwords/master/stopwords.txt}{stopwords} from body of questions PostTypeID="1" in the \textit{Posts.xml}. The output should be text file without any stopwords. \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+\lstinputlisting[firstline=500,lastline=510]{output1d.txt}
+
 
 \subsection*{1e) Pig top 10}
 \textbf{Assumption}: Write a pig script to select top 10 listed words after removing the stopwords from \textit{Posts.xml}. The output should print out top 10 listed words and the corresponding occurrence rate.\\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+\lstinputlisting[firstline=1,lastline=10]{output1e.txt}
 
 \subsection*{1f) Tags}
-\textbf{Assumption}: Write a MapReduce job to create a dictionary over unique tags in  \textit{Posts.xml}. \\ \\
+\textbf{Assumption}: Write a MapReduce job to create a dictionary over unique tags in  \textit{Posts.xml}. The result should print the unique tags.\\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+\lstinputlisting[firstline=500,lastline=510]{output1f.txt}
+
 
 % --TASK2--
 \section*{Task 2 Discover}
@@ -110,46 +133,55 @@ We choose to work together because both of us have python background, therefor w
 \textbf{Assumption}: We chose to write a MapReduce job to count the total unique users there are in \textit{Users.xml}. The result will print out how many unique users there are.\\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+\lstinputlisting[firstline=500,lastline=510]{output2a.txt}
 
 \subsection*{2b) Unique users }
 \textbf{Assumption}: Write a MapReduce job based on task 2a) to create a mapper  and a reducer functions in \textit{Users.xml}. The result should contain unique users in the dataset.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+\lstinputlisting[firstline=500,lastline=510]{output2b.txt}
 
 \subsection*{2c) Top miners }
 \textbf{Assumption}:Write a MapReduce job to find top 10 users based on attribute Reputation="x" in \textit{Users.xml}. The result will print out top 10 users based on their reputation. \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+\lstinputlisting[firstline=500,lastline=510]{output2c.txt}
 
 \subsection*{2d Top) questions }
 \textbf{Assumption}: Write a MapReduce job to find top 10 title questions PostTypeID="1"  based on attribute Score="x" in \textit{Posts.xml}.The result lists top 10 questions using id, question and the score.\\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 
+
 \subsection*{2e) Favorite questions }
 \textbf{Assumption}: Write a MapReduce job to find top 10 title questions PostTypeID="1"  based on attribute FavoriteCount="x" in \textit{Posts.xml}.The result lists top 10 questions like id, question and the score.\\ \\ \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+
 
 \subsection*{2f) Average answers}
 \textbf{Assumption}: \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 
+
 \subsection*{2g) Countries }
 \textbf{Assumption}: We chose to write a MapReduce job to discover users by countries in \textit{Users.xml}. The result lists different countries and corresponding users. \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+
 
 \subsection*{2h) Names}
 \textbf{Assumption}We chose to write a MapReduce job to find the most popular names in \textit{Users.xml}. The result lists top 10 common names and how many.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 
+
 \subsection*{2i) Answers }
 \textbf{Assumption}: Write a simple python code to find how many titles of questions PostTypeId="x" have at least one answers based on attribute AnswerCount in \textit{Users.xml}. The result prints out how many questions have been answered.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+
 
 % --TASK3--
 \section*{Task 3 Numbers}
@@ -159,15 +191,19 @@ We choose to work together because both of us have python background, therefor w
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 
+
 \subsection*{3b) Trigram }
 \textbf{Assumption}: This task is based on 3a, to find three words that appear consecutively in \textit{Posts.xml}. The result print the most common trigram.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 
+
 \subsection*{3c) Combiner }
 \textbf{Assumption}: Write a MapReduce job and add a combiner before  the data sent to the reducer. The result should be the same as a reducer, but the reducer recive a smaller volume of data.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection} Having a combiner in A MapReduce jobs saves us bandwidth and computational strain by decreasing the volume of data sent from the mapper.  What combiner means is to have a semi-reducer after the mapper before sending it to the reducer. 
+
+
 \subsection*{3d) Useless}
 \textbf{Assumption}:  We chose write a MapReduce job  to find how many times the word "useless" in \textit{Posts.xml} occurs in the body of questions PostTypeId="1". The result print how many times the word useless occurs.  \\ \\
 \textbf{Implementation}  \\ \\
@@ -179,6 +215,7 @@ We choose to work together because both of us have python background, therefor w
 \textbf{Assumption}: We chose to write MapReduce job to create index over titles, bodies and answers of questions in \textit{Posts.xml}. We are after having a simple index that lists publications in which a search term/s and occur/s. The result is a list of words and their index appearance in posts \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+
 
 \section*{Conclusion}
 % Do not modify this last lines

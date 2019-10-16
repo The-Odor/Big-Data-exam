@@ -1,0 +1,10 @@
+bitcoin 5918
+transaction 2376
+wallet 2320
+address 1550
+block 1222
+mining 1172
+blockchain 1169
+the 1148
+transactions 1127
+bitcoins 1050
