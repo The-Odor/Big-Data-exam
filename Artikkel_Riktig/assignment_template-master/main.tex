@@ -12,7 +12,31 @@
 % If you decide to use one of the styles above, remember to change the \bibliographystyle{} at the bottom of the document too!
 
 \usepackage{listings} % <-- Required if you want to display program source code in your paper.
-
+\usepackage{xcolor}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+    }
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
@@ -20,7 +44,6 @@
     filecolor=magenta,      
     urlcolor=cyan,
 }
- 
 \urlstyle{same}
 
 % -- End of custom LaTeX packages --
@@ -40,6 +63,7 @@ In this assignment we parsed a dataset, in the form of XMLs, through a Hadoop- a
 
 
 % Do not modify the following two lines
+\lstset{style=mystyle}
 \begin{document}
 \include{cover}
 
@@ -68,61 +92,107 @@ We choose to work together because both of us have python background, therefor w
 
 % --FUNCTIOS %-- 
 \section*{Main functions}
-The datasets cointains only XML files, which it means values to different attritubutes have alot of  ascii charcters, punctiations,numbers and HTML tags. We also needed a function to parse the XML files to Hadoop and to create a mapper for the data.  Therefor we created three different main functions thats being reused through the project. : 
-\subsection{cleanBody}
-Formats string for mapper function
-non-case sensitive, removes HTML formatting, treats anything separeted
-by blank space or / as separate words. Mispellings, names, filenames,
-functionnames etc. will be counted as separate words
+The datasets contains only XML files, which it means values to different attributes have a lot of  ascii characters, punctiations, numbers and HTML tags. We also needed a function to parse the XML files to Hadoop and to create a mapper for the data.  Therefor we created three different main functions thats being reused through the project. : 
+\subsection*{CleanBody}
 
-input:
-  string body : string to be formatted
+In cleanBody function it formats strings for mapper function. The function makes non-case sensitivity, removes ascii characters , HTML formatting, and treats anything saperated by blanked space or as separated words. Most of the words after separating/splitting will be counted as separate words, and this will effect the results of some tasks. For instance  the name "Jens-Petter" will be counted as two words; "Jens" and "Petter". The input for the function is a string body which will be formatted and it returns a list of formatted string.
 
-returns:
-  string body : formatted string
-"""
-\lstinputlisting[language = Python,firstline=500,lastline=510]{output1a.txt}
+\begin{lstlisting}[language=Python, caption=CleanBody function]
+def cleanBody(body):
+    body = body.lower()
+    body = ascii(body)
+    body = sub("<.+?>","",body)
+    body = body.replace("/", " ")
+    body = body.strip()
 
+    for i in ignore_char:
+        	body = body.replace(i, "")
+
+    body = body.split(" ")
+
+    return body
+\end{lstlisting}
+\subsection*{Mapper Core}
+mapper\_core is the core of the mapper function; it prints out the relevant data in a format parseable by Hadoop. It functions through three modes, as determined by the parameter mode: "single", "double", and "triple".
+
+\begin{itemize}
+  \item Single: Assumes input "words" is a list of words to print. Prints word in words as (word, 1). Ignores empty strings and spaces.
+  \item Double: Assumes input "words" is two nested lists to print. Prints word, count in words as (word, count). Ignores empty strings and spaces.
+  \item Triple: Assumes input "words" is three nested lists to print. Prints id, score, title in words as (id, score, title). does not ignore empty strings and spaces.
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption=mapper\_core function]
+def mapper_core(words, mode="single"):
+    if mode == "single":
+        for word in words:
+            if word not in ["", " "]:
+              print("%s %s" %(word,1)) #Emit the word
+
+    elif mode == "double":
+        in1, in2 = words
+        for word, count in zip(in1,in2):
+            if word not in ["", " "]:
+                print("%s %s" %(word,count)) #emit the words
+
+    elif mode == "triple":
+        in1, in2,in3  = words
+        for id, score, title in zip(in1,in2,in3):
+            print("%s %s %s" %(id,score, title)) #emit the words
+
+
+\end{lstlisting}
+
+\subsection*{Xmlparser}
+The chosen method to interpret the dataset is to parse to the mapper function. Although parsing an entire XML-file takes up significant memory, this method fits our dataset. It has been separated out as a function so it may be easily replaced by other methods more fit for large files. The input for this function is a XML-file and the output is a parsed XML-file
+
+\begin{lstlisting}[language=Python, caption=xmlparser function]
+def xmlparser(infile):
+    if not isinstance(infile, str):
+        infile = infile.detach()
+    mytree = ET.parse(infile)
+    myroot = mytree.getroot()
+    return myroot
+\end{lstlisting}
 % --TASK1--
 \section*{Task 1 Warmup}
 %This part of the task is about get to know how hadoop- and pig apache works and how to parse XML  files throught python code. 
 \subsection*{1a) WordCount}
 \textbf{Assumption}: Count the words in body of questions PostTypeID="1"  in the \textit{Posts.xml}  file. The result should be how many times a word occur in the body of questions.\\ \\
-\textbf{Implementation}Hello hello \\ \\
+\textbf{Implementation}The will  \\ \\
 \textbf{Notes/Reflection} bye bye  \\ \\
 
-\lstinputlisting[firstline=500,lastline=510]{output1a.txt}
+\lstinputlisting[firstline=500,lastline=510,title=1a\_output]{output1a.txt}
 
 \subsection*{1b) Unique words}
 \textbf{Assumption}: Write a MapReduce job where the result should be unique words in the titles PostTypeID="1" in the \textit{Posts.xml} File. \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-\lstinputlisting[firstline=500,lastline=510]{output1b.txt}
+\lstinputlisting[firstline=500,lastline=510,title=1b\_output]{output1b.txt}
 
 \subsection*{1c) MoreThan10}
 \textbf{Assumption}: Write a simple python code to check the title length in \textit{Posts.xml}. The result should output how many titles have more than 10 words.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-\lstinputlisting[firstline=1,lastline=1]{output1c.txt}
+\lstinputlisting[firstline=1,lastline=1,title=1c\_output]{output1c.txt}
 
 \subsection*{1d) Stopwords}
 \textbf{Assumption}: Write a simple python code based on task 1a to exclude \href{https://raw.githubusercontent.com/naimdjon/stopwords/master/stopwords.txt}{stopwords} from body of questions PostTypeID="1" in the \textit{Posts.xml}. The output should be text file without any stopwords. \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-\lstinputlisting[firstline=500,lastline=510]{output1d.txt}
+\lstinputlisting[firstline=500,lastline=510,title=1d\_output]{output1d.txt}
 
 
 \subsection*{1e) Pig top 10}
 \textbf{Assumption}: Write a pig script to select top 10 listed words after removing the stopwords from \textit{Posts.xml}. The output should print out top 10 listed words and the corresponding occurrence rate.\\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-\lstinputlisting[firstline=1,lastline=10]{output1e.txt}
+\lstinputlisting[firstline=1,lastline=10,title=1e\_output]{output1e.txt}
 
 \subsection*{1f) Tags}
 \textbf{Assumption}: Write a MapReduce job to create a dictionary over unique tags in  \textit{Posts.xml}. The result should print the unique tags.\\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-\lstinputlisting[firstline=500,lastline=510]{output1f.txt}
+\lstinputlisting[firstline=500,lastline=510,title=1f\_output]{output1f.txt}
 
 
 % --TASK2--
@@ -133,19 +203,19 @@ returns:
 \textbf{Assumption}: We chose to write a MapReduce job to count the total unique users there are in \textit{Users.xml}. The result will print out how many unique users there are.\\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-\lstinputlisting[firstline=500,lastline=510]{output2a.txt}
+\lstinputlisting[firstline=1,lastline=1,title=2a\_output]{output2a.txt}
 
 \subsection*{2b) Unique users }
 \textbf{Assumption}: Write a MapReduce job based on task 2a) to create a mapper  and a reducer functions in \textit{Users.xml}. The result should contain unique users in the dataset.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-\lstinputlisting[firstline=500,lastline=510]{output2b.txt}
+\lstinputlisting[firstline=500,lastline=510,title=2b\_output]{output2b.txt}
 
 \subsection*{2c) Top miners }
 \textbf{Assumption}:Write a MapReduce job to find top 10 users based on attribute Reputation="x" in \textit{Users.xml}. The result will print out top 10 users based on their reputation. \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-\lstinputlisting[firstline=500,lastline=510]{output2c.txt}
+\lstinputlisting[firstline=1,lastline=10,title=2c\_output]{output2c.txt}
 
 \subsection*{2d Top) questions }
 \textbf{Assumption}: Write a MapReduce job to find top 10 title questions PostTypeID="1"  based on attribute Score="x" in \textit{Posts.xml}.The result lists top 10 questions using id, question and the score.\\ \\
