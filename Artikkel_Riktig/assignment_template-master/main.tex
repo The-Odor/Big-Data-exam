@@ -30,7 +30,7 @@
     breaklines=true,                 
     captionpos=b,                    
     keepspaces=true,                 
-    numbers=left,                    
+    numbers=left,                
     numbersep=5pt,                  
     showspaces=false,                
     showstringspaces=false,
@@ -75,7 +75,7 @@ In this assignment we parsed a dataset, in the form of XMLs, through a Hadoop- a
 	course_code    	 = \par{MA120},  % Course code (ex. MA110)
 	course_name      = \par{Big Data},  % Course name (ex. Systems Development)
 	due_date		 = \par{18.October 2019},  % Due date
-	student_name     = \par{Theodore Midtbø Alstad ; Howie Chen},  % Your name (or names, if group – separate names with ; semicolon)
+	student_name     = \par{Theodor Midtbø Alstad ; Howie Chen},  % Your name (or names, if group – separate names with ; semicolon)
 	student_number   = \par{865317 ; 866354},  % Your student ID number (or numbers, if group – separate ID numbers with ; semicolon)
 	group_size		 = 2, % Number of group members (used for the declaration text)
 }
@@ -159,11 +159,11 @@ def xmlparser(infile):
 %This part of the task is about get to know how hadoop- and pig apache works and how to parse XML  files throught python code. 
 \subsection{WordCount}
 \textbf{Assumption}: Count the words in body of questions PostTypeID="1"  in the \textit{Posts.xml}  file. The result should be how many times a word occur in the body of questions.\\ \\
-\textbf{Implementation} The mapper uses the xmlparser function to parse an XML-file, iterates through all rows in parsed file, cleans text using the cleanBody function and prints output for the reducer script by using the mapper\{_}core function.
+\textbf{Implementation} The mapper uses the xmlparser function to parse an XML-file, iterates through all rows in parsed file, cleans text using the cleanBody function and prints output for the reducer script by using the mapper\_core function.
 The reducer receives the mapper output, parses it and loops through the output. A counter variable is used to track repeated words, outputting the word with the counter when the word stops repeating. \\ \\
-\textbf{Notes/Reflection} Here the choices made building the cleanBody function affects the output, interpreting some things as words that clearly are not. See line 7 in 1a_output for example; a<br>, an html line break element, has been turned into the not-word abr. \\ \\
+\textbf{Notes/Reflection} Here the choices made building the cleanBody function affects the output, interpreting some things as words that clearly are not. See line 7 in 1a\_output for example; a< br >, an html line break element, has been turned into the not-word abr. \\ \\
 
-\lstinputlisting[firstline=500,lastline=510,title=1a\_output]{output1a.txt}
+\lstinputlisting[firstline=500, lastline=510, title=1a\_output]{output1a.txt}
 
 \subsection{Unique words}
 \textbf{Assumption}: Write a MapReduce job where the result should be unique words in the titles PostTypeID="1" in the \textit{Posts.xml} File. \\ \\
@@ -173,7 +173,7 @@ The reducer receives the mapper output, parses it and loops through the output. 
 
 \subsection{MoreThan10}
 \textbf{Assumption}: Write a simple python code to check the title length in \textit{Posts.xml}. The result should output how many titles have more than 10 words.  \\ \\
-\textbf{Implementation} The mapper functions as the mapper in 1a WordCount, except it keeps a counter for the titles of more than 10 words and it outputs the final counter instead of using mapper\{_}core.
+\textbf{Implementation} The mapper functions as the mapper in 1a WordCount, except it keeps a counter for the titles of more than 10 words and it outputs the final counter instead of using mapper\_core.
 The reducer receives the mapper outputs and sums them up \\ \\
 \textbf{Notes/Reflection} This MapReduce job is simpler, the reducer is unnecessary outside an environment with clusters.
 \lstinputlisting[firstline=1,lastline=1,title=1c\_output]{output1c.txt}
