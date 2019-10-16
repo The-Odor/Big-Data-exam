@@ -88,13 +88,13 @@ In this assignment we parsed a dataset, in the form of XMLs, through a Hadoop- a
 \tableofcontents
 \newpage
 % --INTRODUCTION--
-\section*{Introduction}
+\section{Introduction}
 We choose to work together because both of us have python background, therefor we choose python as main programming language. We explored Bitcoin as given dataset from \url{archive.org/download/stackexchange/bitcoin.stackexchange.com.7z}  through Apaches: Hadoop and Pig. 
 
 % --FUNCTIOS %-- 
-\section*{Main functions}
+\section{Main functions}
 The datasets contains only XML files, which it means values to different attributes have a lot of  ascii characters, punctiations, numbers and HTML tags. We also needed a function to parse the XML files to Hadoop and to create a mapper for the data.  Therefor we created three different main functions thats being reused through the project. : 
-\subsection*{CleanBody}
+\subsection{CleanBody}
 
 In cleanBody function it formats strings for mapper function. The function makes non-case sensitivity, removes ascii characters , HTML formatting, and treats anything saperated by blanked space or as separated words. Most of the words after separating/splitting will be counted as separate words, and this will effect the results of some tasks. For instance  the name "Jens-Petter" will be counted as two words; "Jens" and "Petter". The input for the function is a string body which will be formatted and it returns a list of formatted string.
 
@@ -113,7 +113,7 @@ def cleanBody(body):
 
     return body
 \end{lstlisting}
-\subsection*{Mapper Core}
+\subsection{Mapper Core}
 mapper\_core is the core of the mapper function; it prints out the relevant data in a format parseable by Hadoop. It functions through three modes, as determined by the parameter mode: "single", "double", and "triple".
 
 \begin{itemize}
@@ -143,8 +143,8 @@ def mapper_core(words, mode="single"):
 
 \end{lstlisting}
 
-\subsection*{Xmlparser}
-The chosen method to interpret the dataset is to parse to the mapper function. Although parsing an entire XML-file takes up significant memory, this method fits our dataset. It has been separated out as a function so it may be easily replaced by other methods more fit for large files. The input for this function is a XML-file and the output is a parsed XML-file PINEAPPLE
+\subsection{Xmlparser}
+The chosen method to interpret the dataset is to parse to the mapper function. Although parsing an entire XML-file takes up significant memory, this method fits our dataset. It has been separated out as a function so it may be easily replaced by other methods more fit for large files. The input for this function is a XML-file and the output is a parsed XML-file 
 
 \begin{lstlisting}[language=Python, caption=xmlparser function]
 def xmlparser(infile):
