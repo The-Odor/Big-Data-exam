@@ -3,8 +3,8 @@
 # 2. the current directory contains files mapper.py and reducer.py for mapper and reducer code respectively
 
 #Simplify task change further
-task=2h
-taskname=name
+task=3b
+taskname=trigram
 
 #Simplify task change
 mapperfile=$task$taskname.py
@@ -24,7 +24,7 @@ hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-2.7.3.jar \
 -files $mapperfile,$reducerfile \
 -mapper $mapperfile \
 -reducer $reducerfile \
--input users.xml \
+-input posts.xml \
 -output $outfile
 
 #Read file and save it locally

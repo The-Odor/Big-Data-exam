@@ -1,11 +1,10 @@
 #!/usr/bin/python3
 import sys
-from operator import itemgetter
 
 """
 xmlmapper(source, infile=sys.stdin)
 main reducer function
-Counts words in xml-files, where the bodies are defined as 
+Counts trigrams in xml-files, where the bodies are defined as 
 questions (PostTypeId = 1)
 
 input:
@@ -37,7 +36,7 @@ def reducer():
     if current_word== word:
         if current_count > most_common[1]:
             most_common = [current_word, current_count]
-        pass
-    print(most_common)
+
+    print(most_common[0],",", most_common[1])
 
 reducer()
