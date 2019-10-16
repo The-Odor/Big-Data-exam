@@ -85,7 +85,8 @@ In this assignment we parsed a dataset, in the form of XMLs, through a Hadoop- a
 \flushbottom
 \maketitle
 
-
+\tableofcontents
+\newpage
 % --INTRODUCTION--
 \section*{Introduction}
 We choose to work together because both of us have python background, therefor we choose python as main programming language. We explored Bitcoin as given dataset from \url{archive.org/download/stackexchange/bitcoin.stackexchange.com.7z}  through Apaches: Hadoop and Pig. 
@@ -179,7 +180,7 @@ def xmlparser(infile):
 \textbf{Assumption}: Write a simple python code based on task 1a to exclude \href{https://raw.githubusercontent.com/naimdjon/stopwords/master/stopwords.txt}{stopwords} from body of questions PostTypeID="1" in the \textit{Posts.xml}. The output should be text file without any stopwords. \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-\lstinputlisting[firstline=500,lastline=510,title=1d\_output]{output1d.txt}
+\lstinputlisting[firstline=500,lastline=509,title=1d\_output]{output1d.txt}
 
 
 \subsection*{1e) Pig top 10}
@@ -209,7 +210,7 @@ def xmlparser(infile):
 \textbf{Assumption}: Write a MapReduce job based on task 2a) to create a mapper  and a reducer functions in \textit{Users.xml}. The result should contain unique users in the dataset.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-\lstinputlisting[firstline=500,lastline=510,title=2b\_output]{output2b.txt}
+% \lstinputlisting[firstline=500,lastline=510,title=2b\_output]{output2b.txt}
 
 \subsection*{2c) Top miners }
 \textbf{Assumption}:Write a MapReduce job to find top 10 users based on attribute Reputation="x" in \textit{Users.xml}. The result will print out top 10 users based on their reputation. \\ \\
@@ -217,41 +218,42 @@ def xmlparser(infile):
 \textbf{Notes/Reflection}
 \lstinputlisting[firstline=1,lastline=10,title=2c\_output]{output2c.txt}
 
-\subsection*{2d Top) questions }
+\subsection*{2d) Top questions }
 \textbf{Assumption}: Write a MapReduce job to find top 10 title questions PostTypeID="1"  based on attribute Score="x" in \textit{Posts.xml}.The result lists top 10 questions using id, question and the score.\\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-
+%\lstinputlisting[firstline=1,lastline=10,title=2d\_output]{output2d.txt}
 
 \subsection*{2e) Favorite questions }
 \textbf{Assumption}: Write a MapReduce job to find top 10 title questions PostTypeID="1"  based on attribute FavoriteCount="x" in \textit{Posts.xml}.The result lists top 10 questions like id, question and the score.\\ \\ \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-
+%\lstinputlisting[firstline=1,lastline=10,title=2e\_output]{output2e.txt}
 
 \subsection*{2f) Average answers}
 \textbf{Assumption}: \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-
+\lstinputlisting[firstline=1,lastline=10,title=2f\_output]{output2f.txt}
 
 \subsection*{2g) Countries }
 \textbf{Assumption}: We chose to write a MapReduce job to discover users by countries in \textit{Users.xml}. The result lists different countries and corresponding users. \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-
+%\lstinputlisting[firstline=1,lastline=10,title=2g\_output]{output2g.txt}
 
 \subsection*{2h) Names}
 \textbf{Assumption}We chose to write a MapReduce job to find the most popular names in \textit{Users.xml}. The result lists top 10 common names and how many.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+%\lstinputlisting[firstline=2,lastline=21,title=2h\_output]{output2h.txt}
 
 
 \subsection*{2i) Answers }
 \textbf{Assumption}: Write a simple python code to find how many titles of questions PostTypeId="x" have at least one answers based on attribute AnswerCount in \textit{Users.xml}. The result prints out how many questions have been answered.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-
+\lstinputlisting[firstline=1,lastline=10,title=2i\_output]{output2i.txt}
 
 % --TASK3--
 \section*{Task 3 Numbers}
@@ -285,7 +287,8 @@ def xmlparser(infile):
 \textbf{Assumption}: We chose to write MapReduce job to create index over titles, bodies and answers of questions in \textit{Posts.xml}. We are after having a simple index that lists publications in which a search term/s and occur/s. The result is a list of words and their index appearance in posts \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
-\lstinputlisting[firstline=1792,lastline=1800,title=4a\_output]{output4a.txt}
+%1792    1800
+\lstinputlisting[firstline=1792,lastline=1800, title=4a\_output]{output4a.txt}
 
 
 
