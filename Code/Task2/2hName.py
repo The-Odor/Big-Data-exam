@@ -1,16 +1,15 @@
 #!/usr/bin/python3
 import sys
-import xml.etree.ElementTree as ET
 sys.path.append('../') #allows access functions in parallel folder
 import ProjectFunctions.functions as proj
 
-cleanBody, mapper_core  = proj.cleanBody, proj.mapper_core
+cleanBody, mapper_core, parser = proj.cleanBody, proj.mapper_core, proj.xmlparser
 
 """
 xmlmapper(source, infile=sys.stdin)
-main mapper function, uses cleanBody() and mapper_core()
-Counts words in xml-files, where the bodies are defined as
-questions (PostTypeId = 1)
+main mapper function, uses cleanBody()
+Outputs top 10 popular usernames
+
 
 input:
   string source           : xml-tag to extract from
@@ -24,21 +23,16 @@ returns:
   None, prints words into format acceptable by Hadoop
 """
 def xmlmapper(source, infile=sys.stdin):
-    if not isinstance(infile, str):
-        infile = infile.detach()
+    parsed = parser(infile)
 
-    #Making the xml-file readable
-    mytree = ET.parse(infile)
-    myroot = mytree.getroot()
-
-    #Extracting the relevant section from the file
-    for post in myroot:
+    # Iterates through each xml-row and extracts data
+    for post in parsed:
         try:
             Name = post.attrib[source]
         except KeyError:
             continue
 
-        name=" ".join(cleanBody(Name))
+        name = " ".join(cleanBody(Name))
         print(name,"|",1)
 
 

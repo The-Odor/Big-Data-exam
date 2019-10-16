@@ -1,12 +1,10 @@
 #!/usr/bin/python3
 import sys
-from operator import itemgetter
 
 """
 xmlmapper(source, infile=sys.stdin)
 main reducer function
-Counts words in xml-files, where the bodies are defined as 
-questions (PostTypeId = 1)
+Counts amount of users in a given location
 
 input:
   None
@@ -31,6 +29,7 @@ def reducer():
                 print("%s %s "%(current_word, current_count))
             current_word = word
             current_count = count
+            
     if current_word== word:
         print("%s %s "% (current_word, current_count))
 
