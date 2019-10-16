@@ -1,15 +1,19 @@
 #!/usr/bin/python3
 import sys
-import xml.etree.ElementTree as ET
 sys.path.append('../') #allows access functions in parallel folder
 import ProjectFunctions.functions as proj
 
-#TODO: update documentation
+parser = proj.xmlparser
+
 """
 xmlmapper(infile)
 main mapper function, uses cleanBody() and mapper_core()
+Counts how many unique users there is in an xml database
 
 input:
+  string source           : xml-tag to extract from
+                            infile
+
   string infile=sys.stdin : parsed xml-file
                             if given a string, will look in
                             working directory for xml to parse
@@ -18,15 +22,13 @@ returns:
   None, prints words into format acceptable by Hadoop
 """
 def xmlmapper(source, infile=sys.stdin):
-    if not isinstance(infile, str):
-        infile = infile.detach()
-    mytree = ET.parse(infile)
-    myroot = mytree.getroot()
+    parsed = parser(infile)
+
+    # Iterates through each xml-row and extracts data
     UserID = []
-    for x in myroot:
+    for Id in parsed:
 
-            #Fetching the content of body
-            UserID.append(x.attrib[source])
+            UserID.append(Id.attrib[source])
 
-    print("Total Unique Users: " + str(len(UserID)))
+    print(len(UserID))
 xmlmapper("Id")
