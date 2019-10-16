@@ -1,0 +1,10 @@
+336,    detecting dishonest mergedmining pool, 186	
+148,    what bitcoin mixing laundry services are availble today, 176	
+845,    change address after payment, 164	
+114,    how can i make my own pool, 151	
+3536,   blockchain for internetofthings or is there any mining algorithm that can be utilized in lowcomputational power devices preserving security, 142	
+8031,   what should i do if i change my bitcoin wallet, 136	
+9046,   how does bitcoin prevent someone from sending more money than he she has, 133	
+658,    is it possible for a country to control bitcoin usage, 132	
+91,     how does the mining process support the currency, 119	
+876,    is there a ripple whitepaper, 118	

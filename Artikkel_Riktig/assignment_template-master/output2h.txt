@@ -1,0 +1,10 @@
+user  3584	
+alex  102	
+john  99	
+david  84	
+mike  74	
+chris  70	
+mark  68	
+michael  65	
+peter  55	
+sam  53	

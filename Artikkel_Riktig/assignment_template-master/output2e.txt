@@ -1,0 +1,10 @@
+148,    what bitcoin mixing laundry services are availble today, 103	
+336,    detecting dishonest mergedmining pool, 95	
+8031,   is this calculation of mining probability using the bernoulli trial formula accurate, 83	
+12427,  can i force my wallet to only have news keys postencryption, 60	
+9046,   how does a client know it is connected to the right pp network, 60	
+3374,   can a mobile be protected against the linode problem, 52	
+3536,   how does shapeshift operate on  confirmations, 52	
+12670,  what is a mining pool what is it good for, 48	
+658,    is it possible for a country to control bitcoin usage, 47	
+118,    is there a mtgox live alternative which supports euro, 46	
