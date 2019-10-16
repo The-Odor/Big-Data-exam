@@ -1,0 +1,99 @@
+% define the infrastructure
+\ExplSyntaxOn
+\keys_define:nn { coverpage }
+ {
+  assignment_title .tl_set:N 	= \hk_variable_assignment_title_tl,
+  student_name  .tl_set:N 		= \hk_variable_student_name_tl,
+  student_number     .tl_set:N 	= \hk_variable_student_number_tl,
+  course_name .tl_set:N 			= \hk_variable_course_name_tl,
+  course_code .tl_set:N			= \hk_variable_course_code_tl,
+  due_date .tl_set:N 			= \hk_variable_due_date_tl,
+  master_of .tl_set:N 			= \hk_variable_master_of_tl,
+  group_size .tl_set:N 			= \hk_variable_group_size_tl,
+ }
+\cs_new_protected:Nn \use_coverpage:n
+ {
+  \keys_set:nn { coverpage } { #1 }
+  \coverpage
+ }
+\cs_set_eq:NN \makecoverpage \use_coverpage:n
+\cs_new:Nn \use_variable:n
+ {
+  \tl_use:c { hk_variable_#1_tl }
+ }
+\cs_set_eq:NN \use \use_variable:n
+\ExplSyntaxOff
+
+
+
+% Command for making the cover page
+
+\newcommand{\coverpage}{%
+\begin{titlepage}
+\begin{center}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.5\linewidth]{images/hk-logo.pdf}
+\end{figure}
+\huge{Course Assignment}\\
+\LARGE{Master of \use{master_of}}\\
+\Large{Department of Technology}\\
+
+\vskip10pt%
+\begin{table}[ht]
+\centering
+\Large
+\setlength{\tabcolsep}{0.5em}
+\setlength\extrarowheight{1.2em}
+\begin{tabularx}{0.8\linewidth}{lX}
+\toprule
+ Assignment title 	& \use{assignment_title} \\ \hline
+ Course code 		& \use{course_code} \\ \hline
+ Course name 		& \use{course_name} \\ \hline
+ Due date			& \use{due_date} \\
+ \bottomrule
+\end{tabularx}%
+\end{table}
+
+\vskip10pt
+\textbf{\Large{Declaration:}}\\
+
+\if\use{group_size}1
+Through the submission of this assignment, I hereby declare\\ that this report is the result of my own work, and that all\\ sources have been properly cited to throughout the text.
+\vskip10pt%
+\begin{table}[ht]
+\centering
+\Large
+\setlength{\tabcolsep}{0.5em}
+\setlength\extrarowheight{1em}
+\begin{tabularx}{0.8\linewidth}{lX}
+\toprule
+ Student name 		& \use{student_name} \\ \hline
+ Student ID number 	& \use{student_number} \\ 
+ \bottomrule
+\end{tabularx}%
+\end{table}
+
+\else 
+
+Through the submission of this assignment, we hereby declare\\ that this report is the result of our own work, and that all\\ sources have been properly cited to throughout the text.
+\begin{table}[ht]
+\centering
+\Large
+\setlength{\tabcolsep}{0.5em}
+\setlength\extrarowheight{1em}
+\begin{tabularx}{0.8\linewidth}{lX}
+\toprule
+ Names of students 		& \use{student_name} \\ \hline
+ Student ID numbers 	& \use{student_number} \\ 
+ \bottomrule
+\end{tabularx}%
+\end{table}
+\fi
+
+
+
+
+\end{center}
+\end{titlepage}
+}
