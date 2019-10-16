@@ -155,41 +155,41 @@ def xmlparser(infile):
     return myroot
 \end{lstlisting}
 % --TASK1--
-\section*{Task 1 Warmup}
+\section{Task 1 Warmup}
 %This part of the task is about get to know how hadoop- and pig apache works and how to parse XML  files throught python code. 
-\subsection*{1a) WordCount}
+\subsection{a WordCount}
 \textbf{Assumption}: Count the words in body of questions PostTypeID="1"  in the \textit{Posts.xml}  file. The result should be how many times a word occur in the body of questions.\\ \\
 \textbf{Implementation}The will  \\ \\
 \textbf{Notes/Reflection} bye bye  \\ \\
 
 \lstinputlisting[firstline=500,lastline=510,title=1a\_output]{output1a.txt}
 
-\subsection*{1b) Unique words}
+\subsection{Unique words}
 \textbf{Assumption}: Write a MapReduce job where the result should be unique words in the titles PostTypeID="1" in the \textit{Posts.xml} File. \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 \lstinputlisting[firstline=500,lastline=510,title=1b\_output]{output1b.txt}
 
-\subsection*{1c) MoreThan10}
+\subsection{MoreThan10}
 \textbf{Assumption}: Write a simple python code to check the title length in \textit{Posts.xml}. The result should output how many titles have more than 10 words.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 \lstinputlisting[firstline=1,lastline=1,title=1c\_output]{output1c.txt}
 
-\subsection*{1d) Stopwords}
+\subsection{Stopwords}
 \textbf{Assumption}: Write a simple python code based on task 1a to exclude \href{https://raw.githubusercontent.com/naimdjon/stopwords/master/stopwords.txt}{stopwords} from body of questions PostTypeID="1" in the \textit{Posts.xml}. The output should be text file without any stopwords. \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 \lstinputlisting[firstline=500,lastline=509,title=1d\_output]{output1d.txt}
 
 
-\subsection*{1e) Pig top 10}
+\subsection{Pig top 10}
 \textbf{Assumption}: Write a pig script to select top 10 listed words after removing the stopwords from \textit{Posts.xml}. The output should print out top 10 listed words and the corresponding occurrence rate.\\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 \lstinputlisting[firstline=1,lastline=10,title=1e\_output]{output1e.txt}
 
-\subsection*{1f) Tags}
+\subsection{Tags}
 \textbf{Assumption}: Write a MapReduce job to create a dictionary over unique tags in  \textit{Posts.xml}. The result should print the unique tags.\\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
@@ -197,93 +197,93 @@ def xmlparser(infile):
 
 
 % --TASK2--
-\section*{Task 2 Discover}
+\section{Task 2 Discover}
 %This part of the task is about to looking through several 
 
-\subsection*{2a) Counting }
+\subsection{Counting }
 \textbf{Assumption}: We chose to write a MapReduce job to count the total unique users there are in \textit{Users.xml}. The result will print out how many unique users there are.\\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 \lstinputlisting[firstline=1,lastline=1,title=2a\_output]{output2a.txt}
 
-\subsection*{2b) Unique users }
+\subsection{Unique users }
 \textbf{Assumption}: Write a MapReduce job based on task 2a) to create a mapper  and a reducer functions in \textit{Users.xml}. The result should contain unique users in the dataset.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
  \lstinputlisting[firstline=500,lastline=510,title=2b\_output]{output2b.txt}
 
-\subsection*{2c) Top miners }
+\subsection{Top miners }
 \textbf{Assumption}:Write a MapReduce job to find top 10 users based on attribute Reputation="x" in \textit{Users.xml}. The result will print out top 10 users based on their reputation. \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 \lstinputlisting[firstline=1,lastline=10,title=2c\_output]{output2c.txt}
 
-\subsection*{2d) Top questions }
+\subsection{Top questions }
 \textbf{Assumption}: Write a MapReduce job to find top 10 title questions PostTypeID="1"  based on attribute Score="x" in \textit{Posts.xml}.The result lists top 10 questions using id, question and the score.\\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 \lstinputlisting[firstline=1,lastline=10,title=2d\_output]{output2d.txt}
 
-\subsection*{2e) Favorite questions }
+\subsection{Favorite questions }
 \textbf{Assumption}: Write a MapReduce job to find top 10 title questions PostTypeID="1"  based on attribute FavoriteCount="x" in \textit{Posts.xml}.The result lists top 10 questions like id, question and the score.\\ \\ \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 \lstinputlisting[firstline=1,lastline=10,title=2e\_output]{output2e.txt}
 
-\subsection*{2f) Average answers}
+\subsection{Average answers}
 \textbf{Assumption}: \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 \lstinputlisting[firstline=1,lastline=10,title=2f\_output]{output2f.txt}
 
-\subsection*{2g) Countries }
+\subsection{Countries }
 \textbf{Assumption}: We chose to write a MapReduce job to discover users by countries in \textit{Users.xml}. The result lists different countries and corresponding users. \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 \lstinputlisting[firstline=1,lastline=10,title=2g\_output]{output2g.txt}
 
-\subsection*{2h) Names}
+\subsection{Names}
 \textbf{Assumption}We chose to write a MapReduce job to find the most popular names in \textit{Users.xml}. The result lists top 10 common names and how many.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 \lstinputlisting[firstline=1,lastline=21,title=2h\_output]{output2h.txt}
 
 
-\subsection*{2i) Answers }
+\subsection{Answers }
 \textbf{Assumption}: Write a simple python code to find how many titles of questions PostTypeId="x" have at least one answers based on attribute AnswerCount in \textit{Users.xml}. The result prints out how many questions have been answered.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 \lstinputlisting[firstline=1,lastline=10,title=2i\_output]{output2i.txt}
 
 % --TASK3--
-\section*{Task 3 Numbers}
+\section{Task 3 Numbers}
 
-\subsection*{3a) Bigram }
+\subsection{Bigram }
 \textbf{Assumption}: We chose to write a MapReduce job to find the most common pair of adjacent words in \textit{Posts.xml}.For instance, "big data" or "Fast car" are examples of bigram. The result print the most common bigram   \\\\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+\lstinputlisting[firstline=1,lastline=10,title=3a\_output]{output3a.txt}
 
-
-\subsection*{3b) Trigram }
+\subsection{Trigram }
 \textbf{Assumption}: This task is based on 3a, to find three words that appear consecutively in \textit{Posts.xml}. The result print the most common trigram.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
+\lstinputlisting[firstline=1,lastline=10,title=3b\_output]{output3b.txt}
 
-
-\subsection*{3c) Combiner }
+\subsection{Combiner }
 \textbf{Assumption}: Write a MapReduce job and add a combiner before  the data sent to the reducer. The result should be the same as a reducer, but the reducer recive a smaller volume of data.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection} Having a combiner in A MapReduce jobs saves us bandwidth and computational strain by decreasing the volume of data sent from the mapper.  What combiner means is to have a semi-reducer after the mapper before sending it to the reducer. 
+\lstinputlisting[firstline=1,lastline=10,title=3c\_output]{output1a.txt}
 
-
-\subsection*{3d) Useless}
+\subsection{Useless}
 \textbf{Assumption}:  We chose write a MapReduce job  to find how many times the word "useless" in \textit{Posts.xml} occurs in the body of questions PostTypeId="1". The result print how many times the word useless occurs.  \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
 
 % --TASK4--
-\section*{Task 4 Search engine}
-\subsection*{4a) Title index}
+\section{Task 4 Search engine}
+\subsection{Title index}
 \textbf{Assumption}: We chose to write MapReduce job to create index over titles, bodies and answers of questions in \textit{Posts.xml}. We are after having a simple index that lists publications in which a search term/s and occur/s. The result is a list of words and their index appearance in posts \\ \\
 \textbf{Implementation}  \\ \\
 \textbf{Notes/Reflection}
