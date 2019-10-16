@@ -261,32 +261,32 @@ The reducer receives the mapper outputs and sums them up \\ \\
 
 \subsection{Bigram }
 \textbf{Assumption}: We chose to write a MapReduce job to find the most common pair of adjacent words in \textit{Posts.xml}.For instance, "big data" or "Fast car" are examples of bigram. The result print the most common bigram   \\\\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} This MapReduce is exactly the same as 1a WordCount, except we output each bigram in the body instead of each word. Because of this we he had to forego the mapper\_core for a print function inside a loop looping through every bigram. The reducer finds the most common bigram by iteratively comparing each elements second element (the bigrams count) against a variable declared maximum. \\ \\
+\textbf{Notes/Reflection} In the print-loop we had to limit the loop to i in range(len(words)-1), since we printed both words[i] and words[i+1], and doing otherwise would result in and out of range error.
 \lstinputlisting[firstline=1,lastline=10,title=3a\_output]{output3a.txt}
 
-\subsection{Trigram }
+\subsection{Trigram}
 \textbf{Assumption}: This task is based on 3a, to find three words that appear consecutively in \textit{Posts.xml}. The result print the most common trigram.  \\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation} This is exactly the same as 3a Bigram, except we output trigrams instead of bigrams \\ \\
+\textbf{Notes/Reflection} The mapper, as in 3a Bigram, limited the print-loop to range(len(words)-2) and printed words[i], words[i+1], and words[i+2].
 \lstinputlisting[firstline=1,lastline=10,title=3b\_output]{output3b.txt}
 
-\subsection{Combiner }
+\subsection{Combiner}
 \textbf{Assumption}: Write a MapReduce job and add a combiner before  the data sent to the reducer. The result should be the same as a reducer, but the reducer recive a smaller volume of data.  \\ \\
-\textbf{Implementation}  \\ \\
-\textbf{Notes/Reflection} Having a combiner in A MapReduce jobs saves us bandwidth and computational strain by decreasing the volume of data sent from the mapper.  What combiner means is to have a semi-reducer after the mapper before sending it to the reducer. 
+\textbf{Implementation} The MapReduce function is the same as in 1a WordCount, with a combiner ahead of the print function in the mapper \\ \\
+\textbf{Notes/Reflection} Having a combiner in a MapReduce job saves bandwidth and computational strain by decreasing the volume of data sent from the mapper. This is less relevant in our case, working with relatively small datasets.
 \lstinputlisting[firstline=1,lastline=10,title=3c\_output]{output1a.txt}
 
 \subsection{Useless}
 \textbf{Assumption}:  We chose write a MapReduce job  to find how many times the word "useless" in \textit{Posts.xml} occurs in the body of questions PostTypeId="1". The result print how many times the word useless occurs.  \\ \\
-\textbf{Implementation}  \\ \\
+\textbf{Implementation} This mapper functions similarly to 1c MoreThan10 and 2i Answers, except instead of checking for titles with more words than 10 or whether AnswerCount is larger than or equal to 1, it counts whether the word "useless" occurs in the body. \\ \\
 \textbf{Notes/Reflection}
 
 % --TASK4--
 \section{Task 4 Search engine}
 \subsection{Title index}
 \textbf{Assumption}: We chose to write MapReduce job to create index over titles, bodies and answers of questions in \textit{Posts.xml}. We are after having a simple index that lists publications in which a search term/s and occur/s. The result is a list of words and their index appearance in posts LOL \\ \\
-\textbf{Implementation}  \\ \\
+\textbf{Implementation} This mapper function parses through all rows in posts.xml. It then forks over whether PostTypeId is 1 or 2, extracting the relevant id, body and title from the row. It contains a combiner to speed up the process, removing duplicates. The reducer parses the input and  \\ \\
 \textbf{Notes/Reflection}
 %1792    1800
 \lstinputlisting[firstline=1792,lastline=1800, title=4a\_output]{output4a.txt}

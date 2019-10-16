@@ -46,8 +46,6 @@ def xmlmapper(source, infile=sys.stdin):
             body = title + body
             body = cleanBody(body)
 
-            id = [int(id)]*len(body)
-
             #Combiner
             for word in body:
                 if word == "":
@@ -55,7 +53,9 @@ def xmlmapper(source, infile=sys.stdin):
                 if word in mappedWords:
                   mappedWords[word].append()
 
-            mapper_core([body, id], "double")
+            id = [int(id)]*len(mappedWords)
+
+            mapper_core([mappedWords, id], "double")
 
 xmlmapper("Title")
 
