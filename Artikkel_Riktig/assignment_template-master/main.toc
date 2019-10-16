@@ -1,0 +1,3 @@
+\babel@toc {english}{}
+\contentsline {subsection}{\numberline {0.1}2f) Average answers}{6}{subsection.0.1}% 
+\contentsfinish 
