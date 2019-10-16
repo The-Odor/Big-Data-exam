@@ -24,7 +24,7 @@ returns:
   None, prints words into format acceptable by Hadoop
 """
 def xmlmapper(source, infile=sys.stdin):
-    count = 0 
+    count = 0
     if not isinstance(infile, str):
         infile = infile.detach()
 
@@ -41,5 +41,5 @@ def xmlmapper(source, infile=sys.stdin):
 
             if("useless" in words):
                 count +=1
-    print("The word Useless appers %d times" %(count))
+    print(count)
 xmlmapper("Body")
