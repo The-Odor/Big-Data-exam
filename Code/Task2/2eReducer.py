@@ -1,37 +1,41 @@
 #!/usr/bin/python3
 import sys
-from operator import itemgetter
-# using a dictionary to map words to their counts
-current_word = None
-current_count = 0
-word = None
-wholelist = []
 
-for line in sys.stdin:
-    line = line.strip()
-    templist= line.split(" ");
-    id, score = templist[:2]
-    tempText = templist[2:]
-    Title=" ".join(tempText)
+def reduce():
+    current_word = None
+    current_count = 0
+    wholelist = []
 
-    #id, score = templst[:2]
-    #Title = templst[2:]
+    for line in sys.stdin:
+        line = line.strip()
+        templist = line.split(" ")
+        id, score = templist[:2]
+        tempText = templist[2:]
+        Title = " ".join(tempText)
 
-    #Title = temptext
+        score = int(score)
+        if current_word ==id:
+            current_count += score
+        else:
+            if current_word:
+                wholelist.append([current_word, Title, current_count])
+            current_word = id
+            current_count = score
+    if current_word== id:
+        wholelist.append([current_word, Title, current_count])
 
+    wholelist.sort(key = lambda x: -x[2])
+    for i in range(10):
+        out = wholelist[i]
 
-    score = int(score)
-    if current_word ==id:
-        current_count += score
-    else:
-        if current_word:
-            #print("%s,%s,%s"%(current_word, Title, current_count))
-            wholelist.append([current_word, Title, current_count])
-        current_word = id
-        current_count = score
-if current_word== id:
-    print("%s,%s,%s "% (current_word, Title, current_count ))
+        idout    = out[0]
+        questout = out[1]
+        scoreout = out[2]
 
-wholelist.sort(key = lambda x: -x[2])
-for i in range (10):
-    print(wholelist[i],"\n")
+        #Text formatting
+        outTrue = idout + ", " + " "*(6-len(idout)) +\
+                    questout + ", " + str(scoreout)
+
+        print(outTrue)
+
+reduce()

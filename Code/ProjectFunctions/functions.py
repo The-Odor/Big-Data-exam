@@ -11,9 +11,10 @@ ignore_char = string.digits + string.punctuation
 """
 cleanBody(body)
 Formats string for mapper function
-non-case sensitive, removes HTML formatting, treats anything separeted
-by blank space or / as separate words. Mispellings, names, filenames,
-functionnames etc. will be counted as separate words
+non-case sensitive, removes HTML- and ascii formatting, 
+treats anything separeted by blank space or / as separate 
+words. Mispellings, names, filenames, functionnames etc. 
+will be counted as separate words
 
 input:
   string body : string to be formatted
@@ -71,7 +72,7 @@ def mapper_core(words, mode="single"):
 xmlparser(infile):
 Our chosen method for interpreting our dataset. Takes up
 a larger amount of memory for larger filesizes, but is
-fast enough and small enough for its application here
+fast enough and small enough for application in this dataset
 
 input:  
   infile : unparsed xml-file
