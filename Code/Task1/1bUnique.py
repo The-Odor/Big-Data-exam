@@ -34,11 +34,9 @@ def xmlmapper(source, infile=sys.stdin):
     #Extracting the relevant section from the file
     for x in myroot:
         if (x.attrib["PostTypeId"] == "1"):
-            #Fetching the content of body
             body = x.attrib[source]
 
             words = cleanBody(body)
-
             mapper_core(words)
 
 xmlmapper("Title")

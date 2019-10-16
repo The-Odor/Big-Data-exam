@@ -6,6 +6,18 @@ current_word = None
 current_count = 0
 word = None
 
+"""
+xmlmapper(source, infile=sys.stdin)
+main reducer function
+Counts words in xml-files, where the bodies are defined as 
+questions (PostTypeId = 1)
+
+input:
+  None
+
+returns:
+  None, prints words into format acceptable by Hadoop
+"""
 for line in sys.stdin:
     line = line.strip()
     word,count = line.split();
