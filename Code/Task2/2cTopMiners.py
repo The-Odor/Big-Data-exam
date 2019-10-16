@@ -29,11 +29,9 @@ def xmlmapper(source, infile=sys.stdin):
         name = miner.attrib[source]
         rep = int(miner.attrib["Reputation"])
         words = " ".join(cleanBody(name))
-        #print([body, rep])
 
-        print(name)
-        print(rep)
+        name = cleanBody(name)
 
-        mapper_core([[name], [rep]], "double")
+        mapper_core([name, [rep]], "double")
 
 xmlmapper("DisplayName")

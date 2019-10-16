@@ -12,7 +12,6 @@ input:
 returns:
   None, prints words into format acceptable by Hadoop
 """
-
 def reducer():
     current_word = None
     word = None
@@ -27,8 +26,7 @@ def reducer():
             if current_word:
                 print("%s "%(current_word))
             current_word = word
-
-            
+ 
     if current_word== word:
         print("%s "% (current_word))
 

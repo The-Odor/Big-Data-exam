@@ -1,37 +1,50 @@
 #!/usr/bin/python3
 import sys
-from operator import itemgetter
-# using a dictionary to map words to their counts
-current_word = None
-current_count = 0
-word = None
-wholelist = []
 
-for line in sys.stdin:
-    line = line.strip()
-    templist= line.split(" ");
-    id, score = templist[:2]
-    tempText = templist[2:]
-    Title=" ".join(tempText)
+"""
+reducer()
+main reducer function
+Outputs top 10 questions in terms of their Score
 
-    #id, score = templst[:2]
-    #Title = templst[2:]
+input:
+  None
 
-    #Title = temptext
+returns:
+  None, prints words into format acceptable by Hadoop
+"""
+def reducer():
+    current_word = None
+    current_count = 0
+    wholelist = []
 
+    for line in sys.stdin:
+        line = line.strip()
+        templist  = line.split(" ")
+        Id, score = templist[:2]
+        tempText  = templist[2:]
+        Title = " ".join(tempText)
 
-    score = int(score)
-    if current_word ==id:
-        current_count += score
-    else:
-        if current_word:
-            #print("%s,%s,%s"%(current_word, Title, current_count))
-            wholelist.append([current_word, Title, current_count])
-        current_word = id
-        current_count = score
-if current_word== id:
-    print("%s,%s,%s "% (current_word, Title, current_count ))
+        score = int(score)
+        if current_word ==Id:
+            current_count += score
+        else:
+            if current_word:
+                wholelist.append([current_word, Title, current_count])
+            current_word = Id
+            current_count = score
+    if current_word== Id:
+        print("%s,%s,%s "% (current_word, Title, current_count))
 
-wholelist.sort(key = lambda x: -x[2])
-for i in range (10):
-    print(wholelist[i],"\n")
+    wholelist.sort(key = lambda x: -x[2])
+    for i in range(10):
+        out = ""
+        for j in wholelist[i]:
+            out += str(j) + ","
+        # for i in out:
+        #     print(i, end=", ")
+        # print()
+
+        # print(wholelist[i],"\n")
+        print(out[:-1])
+
+reducer()

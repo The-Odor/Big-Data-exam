@@ -21,7 +21,6 @@ input:
 returns:
   string body : formatted string
 """
-
 def cleanBody(body):
     body = body.lower()
     body = ascii(body)
