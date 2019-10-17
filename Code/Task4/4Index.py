@@ -57,7 +57,6 @@ def xmlmapper(source, infile=sys.stdin):
                         mappedWords[word].append(id)
                 else:
                     mappedWords[word] = [id]
-            # mappedWords = body
 
             id = [int(id)]*len(mappedWords)
 

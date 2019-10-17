@@ -28,7 +28,7 @@ hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-2.7.3.jar \
 -output $outfile
 
 #Read file and save it locally
-# hadoop fs -cat $outfile/*
+hadoop fs -cat $outfile/*
 hadoop fs -copyToLocal $outfile
 
 #Automatic cleanup
