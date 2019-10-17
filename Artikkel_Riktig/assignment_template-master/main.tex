@@ -101,7 +101,7 @@ The datasets consists only XML files which, being of a document-oriented databas
 \subsection{cleanBody}
 The cleanBody function formats strings to be parseable by python interpreters. The function removes case sensitivity, ascii characters, HTML formatting, and treats anything separated by blanked space or / as separated words. This simple implementation of text formatting will affect the results of some tasks. For instances the name "Jens-Petter" will be interpreted as the word "jenspetter" and the filepath /documents/folder/file.extension will be interpreted as the words "documents", "folder" and "fileextension". \\
 The function takes a string as input, formats it and outputs a list of all the words split by the string.split(" ") function.
-It uses the sub-function of the open source re module to remove HTML-tags and ascii function that is inherent starting with in python 3 to convert all characters to parse-able ascii text. The symbols in ignore\_char, which are characters we are not considering is defined by the builtin string functions string.punctuation and string.digits.
+It uses the sub-function of the open source re module to remove HTML-tags and ascii function that is inherent starting with in python 3 to convert all characters to parse-able ascii text. The symbols in ignore_char, which are characters we are not considering is defined by the builtin string functions string.punctuation and string.digits.
 
 
 \begin{lstlisting}[language=Python, caption=cleanBody function]
@@ -298,34 +298,33 @@ The reducer receives the mapper outputs and sums them up. \\ \\
 
 \subsection{Trigram}
 \textbf{Assumption}: Perform the same task as in 3a Bigram, except operate with trigrams (sequences of 3 words as opposed to 2). The result should be the most common trigram. \\ \\
-\textbf{Implementation} This is exactly the same as 3a Bigram, except we output trigrams instead of bigrams. \\ \\
-\textbf{Notes/Reflection} The mapper, as in 3a Bigram, limited the print-loop to range(len(words)-2) and printed words[i], words[i+1], and words[i+2].
+\textbf{Implementation}: This is exactly the same as 3a Bigram, except we output trigrams instead of bigrams. \\ \\
+\textbf{Notes/Reflection}: The mapper, as in 3a Bigram, limited the print-loop to range(len(words)-2) and printed words[i], words[i+1], and words[i+2].
 \lstinputlisting[firstline=1,lastline=10,title=3b\_output]{output3b.txt}
 
 \subsection{Combiner}
 \textbf{Assumption}: Perform the same task as in 1a WordCount, except add a combiner before the mapper sends information to the reducer. The result should be the same as in 1a WordCount, but the volume of the data transfer should be smaller. \\ \\
 \textbf{Implementation} The MapReduce function is the same as in 1a WordCount, with a combiner ahead of the print function in the mapper. \\ \\
-\textbf{Notes/Reflection} Having a combiner in a MapReduce job saves bandwidth and computational strain by decreasing the volume of data sent from the mapper. This is less relevant in our case, working with relatively small datasets.
+\textbf{Notes/Reflection}: Having a combiner in a MapReduce job saves bandwidth and computational strain by decreasing the volume of data sent from the mapper. This is less relevant in our case, working with relatively small datasets.
 \lstinputlisting[firstline=1,lastline=10,title=3c\_output]{output1a.txt}
 
 \subsection{Useless}
 \textbf{Assumption}: Write a MapReduce job to find how many times the word "useless" in occurs in the bodies of questions, identified by PostTypeID="1", in \textit{Posts.xml}. The result should be a count of how many times the word useless occurs. \\ \\
-\textbf{Implementation} This mapper functions similarly to 1c MoreThan10 and 2i Answers, except instead of checking for titles with more words than 10 or whether AnswerCount is larger than or equal to 1, it counts whether the word "useless" occurs in the body. \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation}: This mapper functions similarly to 1c MoreThan10 and 2i Answers, except instead of checking for titles with more words than 10 or whether AnswerCount is larger than or equal to 1, it counts whether the word "useless" occurs in the body. \\ \\
 \lstinputlisting[firstline=1,lastline=10,title=3d\_output]{output3d.txt}
 % --TASK4--
 \section{Task 4 Search engine}
 \subsection{Title index}
 \textbf{Assumption}: Write MapReduce job to create index over titles, bodies and answers of questions in \textit{Posts.xml}. The result should be a simple index that lists posts words appear in by their Id's. \\ \\
-\textbf{Implementation} This mapper function parses through all rows in posts.xml. It then forks over whether PostTypeId is 1 or 2, extracting the relevant id, body and title from the row. It contains a combiner to speed up the process, removing duplicates. The reducer parses the input and  \\ \\
-\textbf{Notes/Reflection}
+\textbf{Implementation}: This mapper function parses through all rows in posts.xml. It then forks over whether PostTypeId is 1 or 2, extracting the relevant id, body and title from the row. It contains a combiner to speed up the process, removing duplicates. The reducer parses the input and iterates through all the lines. It uses two variables to know what the last word and associated Id was, skipping the word if both are the same, adding the Id to a list if \textit{only} the word is the same, and putting out the word with an associated list of Id's if neither is the same, i.e. it has finished working with the word. \\ \\
+\textbf{Notes/Reflection}:  
 %1792    1800
 \lstinputlisting[firstline=1792,lastline=1800, title=4a\_output]{output4a.txt}
 
 
 
 \section{Conclusion}
-Through this assignmentt we gained experience in using mapReduce jobs and pig scripts. We parsed XML-documents and extracted specific information we were looking for to be formatted to a output to each tasks
+Through this assignment we gained experience in using mapReduce jobs and pig scripts. We parsed XML-documents and extracted specific information we were looking for to be formatted to a output to each tasks
 
 % Do not modify this last lines
 \end{document}
