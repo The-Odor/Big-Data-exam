@@ -3,8 +3,8 @@
 # 2. the current directory contains files mapper.py and reducer.py for mapper and reducer code respectively
 
 #Simplify task change further
-task=3d
-taskname=useless
+task=4
+taskname=index
 
 #Simplify task change
 mapperfile=$task$taskname.py
@@ -28,7 +28,7 @@ hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-2.7.3.jar \
 -output $outfile
 
 #Read file and save it locally
-hadoop fs -cat $outfile/*
+# hadoop fs -cat $outfile/*
 hadoop fs -copyToLocal $outfile
 
 #Automatic cleanup
