@@ -101,7 +101,7 @@ The datasets consists only XML files which, being of a document-oriented databas
 \subsection{cleanBody}
 The cleanBody function formats strings to be parseable by python interpreters. The function removes case sensitivity, ascii characters, HTML formatting, and treats anything separated by blanked space or / as separated words. This simple implementation of text formatting will affect the results of some tasks. For instances the name "Jens-Petter" will be interpreted as the word "jenspetter" and the filepath /documents/folder/file.extension will be interpreted as the words "documents", "folder" and "fileextension". \\
 The function takes a string as input, formats it and outputs a list of all the words split by the string.split(" ") function.
-It uses the sub-function of the open source re module to remove HTML-tags and ascii function that is inherent starting with in python 3 to convert all characters to parse-able ascii text. The symbols in ignore_char, which are characters we are not considering is defined by the builtin string functions string.punctuation and string.digits.
+It uses the sub-function of the open source re module to remove HTML-tags and ascii function that is inherent starting with in python 3 to convert all characters to parse-able ascii text. The symbols in ignore\_char, which are characters we are not considering is defined by the builtin string functions string.punctuation and string.digits.
 
 
 \begin{lstlisting}[language=Python, caption=cleanBody function]
