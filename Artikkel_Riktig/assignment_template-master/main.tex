@@ -89,9 +89,9 @@ In this assignment we parsed a dataset, in the form of XMLs, through a Hadoop- a
 \newpage
 % --INTRODUCTION--
 \section{Introduction}
-This report is of a structure where each task is separately reported, referring to eachother due to their similarity. Each contains our assumptions about what the task is asking for, implementation, and any notes/reflections if necessary, opting to add notes/reflection more than necessary rather than less than necessary.
+This report is of a structure where each task is separately reported, referring to each other due to their similarity. Each contains our assumptions about what the task is asking for, implementation, and any notes/reflections if necessary, opting to add notes/reflection more than necessary rather than less than necessary.
 We chose to work together because both of us have python background, choosing python as main programming language. We explored a Bitcoin StackExchange dataset based in XML-files as given from \url{archive.org/download/stackexchange/bitcoin.stackexchange.com.7z} (accessed 16.10.2019) through Hadoop and Pig. 
-Hadoop is used to store and process big data, it has enormous processing power potential and has the ability to handle virtually any number of tasks and jobs. Hadoop provides a framework which allow users to write and test distributed systems and does not rely on hardware to provide fault tolerance, making it less apt for our small-scale applications, yet we use it for the experience. Pig is a MapReduce abstraction, working on hadoop methods, that we use in some tasks due to its efficiency. We have elected to use both pig-scripts and pure MapReduce for very similar tasks (see 2c and 2d) to both show our ability to employ both methods and get experience with the two methods.
+Hadoop is used to store and process big data, it has enormous processing power potential and has the ability to handle virtually any number of tasks and jobs. Hadoop provides a framework which allow users to write and test distributed systems and does not rely on hardware to provide fault tolerance, making it less apt for our small-scale applications, yet we use it for the experience. Pig is a MapReduce abstraction, working on Hadoop methods, that we use in some tasks due to its efficiency. We have elected to use both pig-scripts and pure MapReduce for very similar tasks (see 2c and 2d) to both show our ability to employ both methods and get experience with the two methods.
 
 %to both show our understanding and get experience with both
 %
@@ -315,7 +315,7 @@ The reducer receives the mapper outputs and sums them up \\ \\
 
 
 
-\section*{Conclusion}
+\section{Conclusion}
 MapReduce in Hadoop map a large dataset, then perform a reduce, on the specific output from the mapper. 
 
 The idea behind MapReduce is that Hadoop can first map a large data set, and then perform a reduction on that content for specific results. A reduce function can be thought of as a kind of filter for raw data. The HDFS system then acts to distribute data across a network or migrate it as necessary.
