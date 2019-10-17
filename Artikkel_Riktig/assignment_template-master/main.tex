@@ -187,7 +187,7 @@ The reducer receives the mapper outputs and sums them up \\ \\
 
 \subsection{Pig top 10}
 \textbf{Assumption}: Write a pig script to select top 10 listed words after removing the stopwords from \textit{Posts.xml}. The output should print out top 10 listed words and the corresponding occurrence rate.\\ \\
-\textbf{Implementation} Given this task being based on 1d StopWords, the mapper and reducer are the same for both tasks. Our pig loaded the output from the MapReduce job, ordered it by count, limited it to 10 elements and stored it into a text file: 1ePig_Output.txt \\ \\
+\textbf{Implementation} Given this task being based on 1d StopWords, the mapper and reducer are the same for both tasks. Our pig loaded the output from the MapReduce job, ordered it by count, limited it to 10 elements and stored it into a text file: 1ePig\_Output.txt \\ \\
 \textbf{Notes/Reflection} We chose for this pig script to load its dataset from an hdfs cluster as opposed to a local storage location
 \lstinputlisting[firstline=1,lastline=10,title=1ePig\_output]{output1e.txt}
 
@@ -216,13 +216,13 @@ The reducer receives the mapper outputs and sums them up \\ \\
 
 \subsection{Top miners}
 \textbf{Assumption}:Write a MapReduce job to find top 10 users based on attribute Reputation="x" in \textit{Users.xml}. The result will print out top 10 users based on their reputation. \\ \\
-\textbf{Implementation} This mapper job is based on 2b Unique users, except instead of putting out name and id, it puts out name and the reputation attribute. Here, reputation is given to mapper\{_}core as a one-element list (mapper\{_}core called with arguments (name, [reputation])) due to it looping through its inputs. The reducer is the same as the reducer of 2b Unique users. The pig script functions the same way as in 1e Pig Top 10\\ \\
+\textbf{Implementation} This mapper job is based on 2b Unique users, except instead of putting out name and id, it puts out name and the reputation attribute. Here, reputation is given to mapper\_core as a one-element list (mapper\_core called with arguments (name, [reputation])) due to it looping through its inputs. The reducer is the same as the reducer of 2b Unique users. The pig script functions the same way as in 1e Pig Top 10\\ \\
 \textbf{Notes/Reflection} We elected here to use pig to order the MapReduce output in order to get experience.
 \lstinputlisting[firstline=1,lastline=10,title=2c\_output]{output2c.txt}
 
 \subsection{Top questions}
 \textbf{Assumption}: Write a MapReduce job to find top 10 title questions PostTypeID="1"  based on attribute Score="x" in \textit{Posts.xml}.The result lists top 10 questions using id, question and the score.\\ \\
-\textbf{Implementation} This mapper job functions similarly to 2c Top miners except it puts out 3 parsed attributes using the "triple"-mode of mapper\{_}core. The reducer performs the reduction and ordering, finding the 10 highest score values. It does this by inserting every input into a list instead of printing it, using pythons standard function string.sort to order it. It then iterates through the 10 highest values to give an output \\ \\
+\textbf{Implementation} This mapper job functions similarly to 2c Top miners except it puts out 3 parsed attributes using the "triple"-mode of mapper\_core. The reducer performs the reduction and ordering, finding the 10 highest score values. It does this by inserting every input into a list instead of printing it, using pythons standard function string.sort to order it. It then iterates through the 10 highest values to give an output \\ \\
 \textbf{Notes/Reflection} The reducer could potentially be improved by only keeping 10 elements in the list at once, changing them out as higher scores were encountered.
 \lstinputlisting[firstline=1,lastline=10,title=2d\_output]{output2d.txt}
 
