@@ -150,7 +150,7 @@ def mapper_core(words, mode="single"):
 
 \subsection{xmlparser}
 The xmlparser function parses an xml using the open-source xml.etree.ElementTree. For normal use it uses sys.stdin as input, but for debugging purposes it also contains a clause that lets it accept a string (see the isinstance(infile, str) check) as a path to the location of an XML-file.\\
-Although parsing an entire XML-file takes up significant memory, this method fits our dataset. It has been separated out as a function so it may be easily replaced by other methods more fit for large files. The input for this function is a XML-file and the output is a parsed XML-file 
+Although parsing an entire XML-file takes up significant memory, this method fits our dataset. It has been separated out as a function so it may be easily replaced by other methods more fit for large files. The input for this function is a XML-file and the output is a parsed XML-file.
 
 \begin{lstlisting}[language=Python, caption=xmlparser function]
 def xmlparser(infile):
@@ -197,7 +197,7 @@ The reducer receives the mapper output, parses it and iterates through the parse
 \lstinputlisting[firstline=500, lastline=510, title=1a\_output]{output1a.txt}
 
 \subsection{Unique words}
-\textbf{Assumption}: Write a MapReduce job which outputs unique words in the titles of questions, identified by PostTypeID="1", in \textit{Posts.xml}. The result should be a list of each word as it appears in the titles of questions \\ \\
+\textbf{Assumption}: Write a MapReduce job which outputs unique words in the titles of questions, identified by PostTypeID="1", in \textit{Posts.xml}. The result should be a list of each word as it appears in the titles of questions. \\ \\
 \textbf{Implementation}: This MapReduce job functions as 1a WordCount does, except it does not count the words and it looks through the titles instead of the bodies. \\ \\
 \textbf{Notes/Reflection}: Here again the choices made building the cleanBody function affects the output.
 \lstinputlisting[firstline=500,lastline=510,title=1b\_output]{output1b.txt}
@@ -253,7 +253,7 @@ The reducer receives the mapper outputs and sums them up. \\ \\
 
 \subsection{Top questions}
 \textbf{Assumption}: Write a pig script or MapReduce job to find top 10 title questions, identified by PostTypeID="1", in \textit{Posts.xml} based on the Score attribute. The result should be a list containing the top 10 questions, showing id, question, and score.\\ \\
-\textbf{Implementation}: This mapper job functions similarly to 2c Top miners except it puts out 3 parsed attributes using the "triple"-mode of mapper\_core. The reducer performs the reduction and ordering, finding the 10 highest score values. It does this by inserting every input into a list instead of printing it, using pythons standard function string.sort to order it. It then iterates through the 10 highest values to give an output \\ \\
+\textbf{Implementation}: This mapper job functions similarly to 2c Top miners except it puts out 3 parsed attributes using the "triple"-mode of mapper\_core. The reducer performs the reduction and ordering, finding the 10 highest score values. It does this by inserting every input into a list instead of printing it, using pythons standard function string.sort to order it. It then iterates through the 10 highest values to give an output.\\ \\
 \textbf{Notes/Reflection}: The reducer could potentially be improved by only keeping 10 elements in the list at once, changing them out as higher scores were encountered.
 \lstinputlisting[firstline=1,lastline=10,title=2d\_output]{output2d.txt}
 
@@ -324,7 +324,7 @@ The reducer receives the mapper outputs and sums them up. \\ \\
 
 
 \section{Conclusion}
-Through this assignment we gained experience in using mapReduce jobs and pig scripts. We parsed XML-documents and extracted specific information we were looking for to be formatted to a output to each tasks
+Through this assignment we gained experience in using MapReduce jobs and pig scripts. We parsed XML-documents and extracted specific information we were looking for to be formatted to an output to each tasks.
 
 % Do not modify this last lines
 \end{document}
