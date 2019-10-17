@@ -165,7 +165,8 @@ def xmlparser(infile):
 \end{lstlisting}
 
 \subsection{Import}
-\begin{lstlisting}[language=Python, caption=xmlparser function]
+The sys module is an open-source, built in python function that allows us to add to the module search path, finding ProjectFunctions in a parallel folder, and read in the input for our mapper function andreduce function
+\begin{lstlisting}[language=Python, caption=Import for sys]
 import sys
 sys.path.append(\'../\') #allows access functions in parallel folder
 import ProjectFunctions.functions as proj
