@@ -89,7 +89,7 @@ In this assignment we parsed a dataset, in the form of XMLs, through a Hadoop- a
 \newpage
 % --INTRODUCTION--
 \section{Introduction}
-We chose to work together because both of us have python background, therefor we choose python as main programming language. We explored Bitcoin as given dataset from \url{archive.org/download/stackexchange/bitcoin.stackexchange.com.7z}  through Apaches: Hadoop and Pig. Hadoop is used to store and process big data, it has enormous processing power and have the ability to handle virtually  tasks or jobs. Hadoop provide a framework which allow users to write and test distributed systems and does not rely on hardware to provide fault tolerance. Big data is a large collection of large datasets that cannot be processed by using traditional techniques, therefor in this assignment we choose to combine big data and hadoop to process large datasets. 
+We chose to work together because both of us have python background, therefor we choose python as main programming language. We explored Bitcoin as given dataset from \url{archive.org/download/stackexchange/bitcoin.stackexchange.com.7z}  through Apaches: Hadoop and Pig. Hadoop is used to store and process big data, it has enormous processing power and have the ability to handle virtually  tasks or jobs. Hadoop provide a framework which allow users to write and test distributed systems and does not rely on hardware to provide fault tolerance. Big data is a large collection of large datasets that cannot be processed by using traditional techniques, therefor in this assignment we chose to combine big data and Hadoop to process large datasets. 
 
 % --FUNCTIOS %-- 
 \section{Main functions}
@@ -247,7 +247,7 @@ The reducer receives the mapper outputs and sums them up \\ \\
 \subsection{Names}
 \textbf{Assumption}We chose to write a MapReduce job to find the most popular names in \textit{Users.xml}. The result lists top 10 common names and how many.  \\ \\
 \textbf{Implementation} This mapper functions similarly to 2g Countries, except it extracts the DisplayName-attribute in place of the Location-attribute. The reducer functions similarly to 2d Top questions, except it parses differently and has different text formatting for the output due to the decrease from 3 to 2 arguments \\ \\
-\textbf{Notes/Reflection} Here the most common name is User. This is due to our choice of removing numbers in cleanBody, combinging User1, User2, User3 etc.
+\textbf{Notes/Reflection} Here the most common name is User. This is due to our choice of removing numbers in cleanBody, combining User1, User2, User3 etc.
 \lstinputlisting[firstline=1,lastline=21,title=2h\_output]{output2h.txt}
 
 
@@ -294,5 +294,11 @@ The reducer receives the mapper outputs and sums them up \\ \\
 
 
 \section*{Conclusion}
+MapReduce in Hadoop map a large dataset, then perform a reduce, on the specific output from the mapper. 
+
+The idea behind MapReduce is that Hadoop can first map a large data set, and then perform a reduction on that content for specific results. A reduce function can be thought of as a kind of filter for raw data. The HDFS system then acts to distribute data across a network or migrate it as necessary.
+
+
+
 % Do not modify this last lines
 \end{document}
