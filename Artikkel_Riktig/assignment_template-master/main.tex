@@ -150,7 +150,6 @@ def mapper_core(words, mode="single"):
         for id, score, title in zip(in1,in2,in3):
             print("%s %s %s" %(id,score, title)) #emit the words
 
-
 \end{lstlisting}
 
 \subsection{Xmlparser}
@@ -172,6 +171,7 @@ sys.path.append(\'../\') #allows access functions in parallel folder
 import ProjectFunctions.functions as proj
 \end{lstlisting}
 \subsection{Import ElementTree}
+ElementTree is a open source library. XML is a inherently hierarhcial data format, and the most natural way to represent the data is with a tree. By using the library ElementTree will represent the XML document as a tree, and elements of the tree is represented as single nodes. 
 \begin{lstlisting}[language=Python, caption= Import for ElementTree]
 import xml.etree.ElementTree as ET
 \end{lstlisting}
