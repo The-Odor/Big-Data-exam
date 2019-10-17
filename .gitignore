@@ -4,3 +4,5 @@ stopwords.txt
 *.log
 *.sh
 *.sh
+main.aux
+main.sync*
