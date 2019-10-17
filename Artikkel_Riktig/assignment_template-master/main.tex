@@ -89,16 +89,16 @@ In this assignment we parsed a dataset, in the form of XMLs, through a Hadoop- a
 \newpage
 % --INTRODUCTION--
 \section{Introduction}
-We choose to work together because both of us have python background, therefor we choose python as main programming language. We explored Bitcoin as given dataset from \url{archive.org/download/stackexchange/bitcoin.stackexchange.com.7z}  through Apaches: Hadoop and Pig. 
+We chose to work together because both of us have python background, therefor we choose python as main programming language. We explored Bitcoin as given dataset from \url{archive.org/download/stackexchange/bitcoin.stackexchange.com.7z}  through Apaches: Hadoop and Pig. Hadoop is used to store and process big data, it has enormous processing power and have the ability to handle virtually  tasks or jobs. Hadoop provide a framework which allow users to write and test distributed systems and does not rely on hardware to provide fault tolerance. Big data is a large collection of large datasets that cannot be processed by using traditional techniques, therefor in this assignment we choose to combine big data and hadoop to process large datasets. 
 
 % --FUNCTIOS %-- 
 \section{Main functions}
-The datasets contains only XML files, which it means values to different attributes have a lot of  ascii characters, punctiations, numbers and HTML tags. We also needed a function to parse the XML files to Hadoop and to create a mapper for the data.  Therefor we created three different main functions thats being reused through the project. : 
+The datasets contains only XML files, which it means values to different attributes have a lot of  ascii characters, punctuation, numbers and HTML tags. We also needed a function to parse the XML files to Hadoop and to create a mapper for the data.  Therefor we created three different main functions thats being reused through the project. : 
 \subsection{CleanBody}
 
-In cleanBody function it formats strings for mapper function. The function makes non-case sensitivity, removes ascii characters , HTML formatting, and treats anything saperated by blanked space or as separated words. Most of the words after separating/splitting will be counted as separate words, and this will effect the results of some tasks. For instance  the name "Jens-Petter" will be counted as two words; "Jens" and "Petter". The input for the function is a string body which will be formatted and it returns a list of formatted string.
+In cleanBody function it formats strings for mapper function. The function makes non-case sensitivity, removes ascii characters , HTML formatting, and treats anything separated by blanked space or as separated words. Most of the words after separating/splitting will be counted as separate words, and this will effect the results of some tasks. For instance  the name "Jens-Petter" will be counted as two words; "Jens" and "Petter". The input for the function is a string body which will be formatted and it returns a list of formatted string.
 
-\begin{lstlisting}[language=Python, caption=CleanBody function]
+\begin{lstlisting}[language=Python, caption=cleanBody function]
 def cleanBody(body):
     body = body.lower()
     body = ascii(body)
