@@ -184,7 +184,7 @@ from re import sub
 \end{lstlisting}
 
 \subsection{Bash-script}
-As an example of files being run, this bash-script that was used while testing out scripts is provided. It was used on a windows PC, meaning scripts had to be converted to unix code. I automatically names, cleans, and saves outputs locally.
+As an example of files being run, this bash-script that was used while testing out scripts is provided. It was used on a windows PC, meaning scripts had to be converted to unix code. It automatically names, cleans, and saves outputs locally. In this example task 4 index is being run. Other examples are 2c using task=2c and taskname=TopMiners and xmlsource=users.
 \lstinputlisting[title=bash-script for a windows-based environment]{runtheo.sh}
 
 
