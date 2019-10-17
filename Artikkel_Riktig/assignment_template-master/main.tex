@@ -164,6 +164,17 @@ def xmlparser(infile):
     myroot = mytree.getroot()
     return myroot
 \end{lstlisting}
+
+\subsection{Import}
+\begin{lstlisting}[language=Python, caption=xmlparser function]
+import sys
+sys.path.append(\'../\') #allows access functions in parallel folder
+import ProjectFunctions.functions as proj
+\end{lstlisting}
+\subsection{Import ElementTree}
+\begin{lstlisting}[language=Python, caption= Import for ElementTree]
+import xml.etree.ElementTree as ET
+\end{lstlisting}
 % --TASK1--
 \section{Task 1 Warmup}
 %This part of the task is about get to know how hadoop- and pig apache works and how to parse XML  files throught python code. 
