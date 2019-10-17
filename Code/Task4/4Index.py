@@ -9,7 +9,7 @@ cleanBody, mapper_core, parser = proj.cleanBody, proj.mapper_core, proj.xmlparse
 xmlmapper(source, infile=sys.stdin)
 main mapper function, uses cleanBody() and mapper_core()
 Indexes all words in bodies of questions, titles and
-answers according to the post Id of the posts it 
+answers according to the post Id of the posts it
 appears in
 
 input:
@@ -27,7 +27,7 @@ def xmlmapper(source, infile=sys.stdin):
     parsed = parser(infile)
 
     #Extracting the relevant section from the file
-    for row in parsed[:10000]:
+    for row in parsed:
         mappedWords = {}
         if (row.attrib["PostTypeId"] in ["1", "2"]):
             body = row.attrib["Body"]
@@ -63,4 +63,3 @@ def xmlmapper(source, infile=sys.stdin):
             mapper_core([mappedWords, id], "double")
 
 xmlmapper("Title")
-

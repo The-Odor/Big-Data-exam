@@ -89,16 +89,16 @@ In this assignment we parsed a dataset, in the form of XMLs, through a Hadoop- a
 \newpage
 % --INTRODUCTION--
 \section{Introduction}
-We choose to work together because both of us have python background, therefor we choose python as main programming language. We explored Bitcoin as given dataset from \url{archive.org/download/stackexchange/bitcoin.stackexchange.com.7z}  through Apaches: Hadoop and Pig. 
+We chose to work together because both of us have python background, therefor we choose python as main programming language. We explored Bitcoin as given dataset from \url{archive.org/download/stackexchange/bitcoin.stackexchange.com.7z}  through Apaches: Hadoop and Pig. Hadoop is used to store and process big data, it has enormous processing power and have the ability to handle virtually  tasks or jobs. Hadoop provide a framework which allow users to write and test distributed systems and does not rely on hardware to provide fault tolerance. Big data is a large collection of large datasets that cannot be processed by using traditional techniques, therefor in this assignment we chose to combine big data and Hadoop to process large datasets. 
 
 % --FUNCTIOS %-- 
 \section{Main functions}
-The datasets contains only XML files, which it means values to different attributes have a lot of  ascii characters, punctiations, numbers and HTML tags. We also needed a function to parse the XML files to Hadoop and to create a mapper for the data.  Therefor we created three different main functions thats being reused through the project. : 
+The datasets contains only XML files, which it means values to different attributes have a lot of  ascii characters, punctuation, numbers and HTML tags. We also needed a function to parse the XML files to Hadoop and to create a mapper for the data.  Therefor we created three different main functions thats being reused through the project. : 
 \subsection{CleanBody}
 
-In cleanBody function it formats strings for mapper function. The function makes non-case sensitivity, removes ascii characters , HTML formatting, and treats anything saperated by blanked space or as separated words. Most of the words after separating/splitting will be counted as separate words, and this will effect the results of some tasks. For instance  the name "Jens-Petter" will be counted as two words; "Jens" and "Petter". The input for the function is a string body which will be formatted and it returns a list of formatted string.
+In cleanBody function it formats strings for mapper function. The function makes non-case sensitivity, removes ascii characters , HTML formatting, and treats anything separated by blanked space or as separated words. Most of the words after separating/splitting will be counted as separate words, and this will effect the results of some tasks. For instance  the name "Jens-Petter" will be counted as two words; "Jens" and "Petter". The input for the function is a string body which will be formatted and it returns a list of formatted string.
 
-\begin{lstlisting}[language=Python, caption=CleanBody function]
+\begin{lstlisting}[language=Python, caption=cleanBody function]
 def cleanBody(body):
     body = body.lower()
     body = ascii(body)
@@ -187,7 +187,7 @@ The reducer receives the mapper outputs and sums them up \\ \\
 
 \subsection{Pig top 10}
 \textbf{Assumption}: Write a pig script to select top 10 listed words after removing the stopwords from \textit{Posts.xml}. The output should print out top 10 listed words and the corresponding occurrence rate.\\ \\
-\textbf{Implementation} Given this task being based on 1d StopWords, the mapper and reducer are the same for both tasks. Our pig loaded the output from the MapReduce job, ordered it by count, limited it to 10 elements and stored it into a text file: 1ePig_Output.txt \\ \\
+\textbf{Implementation} Given this task being based on 1d StopWords, the mapper and reducer are the same for both tasks. Our pig loaded the output from the MapReduce job, ordered it by count, limited it to 10 elements and stored it into a text file: 1ePig\_Output.txt \\ \\
 \textbf{Notes/Reflection} We chose for this pig script to load its dataset from an hdfs cluster as opposed to a local storage location
 \lstinputlisting[firstline=1,lastline=10,title=1ePig\_output]{output1e.txt}
 
@@ -216,13 +216,13 @@ The reducer receives the mapper outputs and sums them up \\ \\
 
 \subsection{Top miners}
 \textbf{Assumption}:Write a MapReduce job to find top 10 users based on attribute Reputation="x" in \textit{Users.xml}. The result will print out top 10 users based on their reputation. \\ \\
-\textbf{Implementation} This mapper job is based on 2b Unique users, except instead of putting out name and id, it puts out name and the reputation attribute. Here, reputation is given to mapper\{_}core as a one-element list (mapper\{_}core called with arguments (name, [reputation])) due to it looping through its inputs. The reducer is the same as the reducer of 2b Unique users. The pig script functions the same way as in 1e Pig Top 10\\ \\
+\textbf{Implementation} This mapper job is based on 2b Unique users, except instead of putting out name and id, it puts out name and the reputation attribute. Here, reputation is given to mapper\_core as a one-element list (mapper\_core called with arguments (name, [reputation])) due to it looping through its inputs. The reducer is the same as the reducer of 2b Unique users. The pig script functions the same way as in 1e Pig Top 10\\ \\
 \textbf{Notes/Reflection} We elected here to use pig to order the MapReduce output in order to get experience.
 \lstinputlisting[firstline=1,lastline=10,title=2c\_output]{output2c.txt}
 
 \subsection{Top questions}
 \textbf{Assumption}: Write a MapReduce job to find top 10 title questions PostTypeID="1"  based on attribute Score="x" in \textit{Posts.xml}.The result lists top 10 questions using id, question and the score.\\ \\
-\textbf{Implementation} This mapper job functions similarly to 2c Top miners except it puts out 3 parsed attributes using the "triple"-mode of mapper\{_}core. The reducer performs the reduction and ordering, finding the 10 highest score values. It does this by inserting every input into a list instead of printing it, using pythons standard function string.sort to order it. It then iterates through the 10 highest values to give an output \\ \\
+\textbf{Implementation} This mapper job functions similarly to 2c Top miners except it puts out 3 parsed attributes using the "triple"-mode of mapper\_core. The reducer performs the reduction and ordering, finding the 10 highest score values. It does this by inserting every input into a list instead of printing it, using pythons standard function string.sort to order it. It then iterates through the 10 highest values to give an output \\ \\
 \textbf{Notes/Reflection} The reducer could potentially be improved by only keeping 10 elements in the list at once, changing them out as higher scores were encountered.
 \lstinputlisting[firstline=1,lastline=10,title=2d\_output]{output2d.txt}
 
@@ -247,7 +247,7 @@ The reducer receives the mapper outputs and sums them up \\ \\
 \subsection{Names}
 \textbf{Assumption}We chose to write a MapReduce job to find the most popular names in \textit{Users.xml}. The result lists top 10 common names and how many.  \\ \\
 \textbf{Implementation} This mapper functions similarly to 2g Countries, except it extracts the DisplayName-attribute in place of the Location-attribute. The reducer functions similarly to 2d Top questions, except it parses differently and has different text formatting for the output due to the decrease from 3 to 2 arguments \\ \\
-\textbf{Notes/Reflection} Here the most common name is User. This is due to our choice of removing numbers in cleanBody, combinging User1, User2, User3 etc.
+\textbf{Notes/Reflection} Here the most common name is User. This is due to our choice of removing numbers in cleanBody, combining User1, User2, User3 etc.
 \lstinputlisting[firstline=1,lastline=21,title=2h\_output]{output2h.txt}
 
 
@@ -294,5 +294,11 @@ The reducer receives the mapper outputs and sums them up \\ \\
 
 
 \section*{Conclusion}
+MapReduce in Hadoop map a large dataset, then perform a reduce, on the specific output from the mapper. 
+
+The idea behind MapReduce is that Hadoop can first map a large data set, and then perform a reduction on that content for specific results. A reduce function can be thought of as a kind of filter for raw data. The HDFS system then acts to distribute data across a network or migrate it as necessary.
+
+
+
 % Do not modify this last lines
 \end{document}
