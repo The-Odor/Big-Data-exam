@@ -312,13 +312,14 @@ The reducer receives the mapper outputs and sums them up. \\ \\
 \textbf{Assumption}: Write a MapReduce job to find how many times the word "useless" in occurs in the bodies of questions, identified by PostTypeID="1", in \textit{Posts.xml}. The result should be a count of how many times the word useless occurs. \\ \\
 \textbf{Implementation}: This mapper functions similarly to 1c MoreThan10 and 2i Answers, except instead of checking for titles with more words than 10 or whether AnswerCount is larger than or equal to 1, it counts whether the word "useless" occurs in the body. \\ \\
 \lstinputlisting[firstline=1,lastline=10,title=3d\_output]{output3d.txt}
+
+
 % --TASK4--
 \section{Task 4 Search engine}
 \subsection{Title index}
 \textbf{Assumption}: Write MapReduce job to create index over titles, bodies and answers of questions in \textit{Posts.xml}. The result should be a simple index that lists posts words appear in by their Id's. \\ \\
 \textbf{Implementation}: This mapper function parses through all rows in posts.xml. It then forks over whether PostTypeId is 1 or 2, extracting the relevant id, body and title from the row. It contains a combiner to speed up the process, removing duplicates. The reducer parses the input and iterates through all the lines. It uses two variables to know what the last word and associated Id was, skipping the word if both are the same, adding the Id to a list if \textit{only} the word is the same, and putting out the word with an associated list of Id's if neither is the same, i.e. it has finished working with the word. \\ \\
-\textbf{Notes/Reflection}:  
-%1792    1800
+\textbf{Notes/Reflection}: We elected to have a combiner in the mapper although it is not strictly necessary, since we are working with small file-sizes.
 \lstinputlisting[firstline=1792,lastline=1800, title=4a\_output]{output4a.txt}
 
 
