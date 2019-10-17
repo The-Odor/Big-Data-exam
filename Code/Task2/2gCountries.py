@@ -31,6 +31,8 @@ def xmlmapper(source, infile=sys.stdin):
         except KeyError:
             continue
 
+        Location = Location.split(",")[-1]
+            
         loc = " ".join(cleanBody(Location))
 
         print(loc, "|", 1)
